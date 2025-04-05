@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\2025 - I\\DAW I \u0026 DSW I - Proyecto Final\\DSW I\\proyectoShopmi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{561D621D-FD92-4E29-AF71-619EB6A74FE6}|proyectoShopmi\\proyectoShopmi.csproj|d:\\2025 - i\\daw i \u0026 dsw i - proyecto final\\dsw i\\proyectoshopmi\\proyectoshopmi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{561D621D-FD92-4E29-AF71-619EB6A74FE6}|proyectoShopmi\\proyectoShopmi.csproj|solutionrelative:proyectoshopmi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\2025 - I\\DAW I \u0026 DSW I - Proyecto Final\\DSW I\\proyectoShopmi\\proyectoShopmi\\appsettings.json",
+              "RelativeDocumentMoniker": "proyectoShopmi\\appsettings.json",
+              "ToolTip": "D:\\2025 - I\\DAW I \u0026 DSW I - Proyecto Final\\DSW I\\proyectoShopmi\\proyectoShopmi\\appsettings.json",
+              "RelativeToolTip": "proyectoShopmi\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-05T21:51:42.937Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+@proyectoShopmi_HostAddress = http://localhost:5237
+
+GET {{proyectoShopmi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
