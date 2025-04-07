@@ -9,7 +9,7 @@ namespace proyectoShopmi.Models
         [DisplayName("Codigo")]
         public int codcliente { get; set; }
 
-        [DisplayName("Numjero de Documento")]
+        [DisplayName("Numero de Documento")]
         public string? numerocomdocumento { get; set; }
 
         [DisplayName("Apellido")]
