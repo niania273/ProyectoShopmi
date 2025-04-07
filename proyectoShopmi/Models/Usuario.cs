@@ -18,6 +18,9 @@ namespace proyectoShopmi.Models
         [DisplayName("Correo")]
         public string? corUsu { get; set; }
 
+        [DisplayName("Contraseña")]
+        public string? conUsu { get; set; }
+
         [DataType(DataType.DateTime)]
         [DisplayName("Fecha de Creación")]
         public string? fecCre { get; set; }
@@ -28,12 +31,12 @@ namespace proyectoShopmi.Models
         //Relación Usuario y Empleado
         [DisplayName("Referencia Empleado")]
         public int codEmp { get; set; }
-        public Empleado? Empleado { get; set; }
+        public virtual Empleado Empleado { get; set; }
 
         //Relación Usuario y Rol
         [DisplayName("Referencia Rol")]
         public int codRol { get; set; }
-        public Rol? Rol { get; set; }
+        public virtual Rol Rol { get; set; }
 
     }
 }

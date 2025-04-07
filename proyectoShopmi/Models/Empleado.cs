@@ -37,6 +37,6 @@ namespace proyectoShopmi.Models
         //Relación Empleado y Distrito
         [DisplayName("Distrito")]
         public int codDis { get; set; }
-        public Distrito? Distrito { get; set; }
+        public virtual Distrito Distrito { get; set; }
     }
 }
