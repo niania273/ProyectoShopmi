@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace proyectoShopmi.Models
@@ -7,28 +7,28 @@ namespace proyectoShopmi.Models
     {
         [Key]
         [DisplayName("Código")]
-        public int codpedido { get; set; }
-        
-        [DisplayName("Cliente")]
-        public int codcliente { get; set; }
-      
-        [DisplayName("Empleado")]
-        public int codempleado { get; set; }  
-        
+        public int codPedido { get; set; }
+
         [DisplayName("Fecha del Pedido")]
-        public DateTime fecped { get; set; }
-        
+        public DateTime fecPed { get; set; }
+
         [DisplayName("Precio Total")]
-        public decimal preciototal { get; set; }
+        public decimal precioTotal { get; set; }
 
         [DisplayName("Cantidad")]
         public int cantidad { get; set; }
 
         [DisplayName("Estado")]
-        public bool estped { get; set; }
+        public bool estPed { get; set; }
 
-        //Relación Empleado y Distrito
-        public int codDis { get; set; }
-        public Distrito? Distrito { get; set; }
+        //Relación Pedido y Cliente
+        [DisplayName("Cliente")]
+        public int codCliente { get; set; }
+        public Cliente? Cliente { get; set; }
+
+        //Relación Pedido y Cliente
+        [DisplayName("Empleado")]
+        public int codEmpleado { get; set; }
+        public Empleado? Empleado { get; set; }
     }
 }
