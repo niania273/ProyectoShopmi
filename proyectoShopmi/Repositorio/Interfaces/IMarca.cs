@@ -4,10 +4,11 @@ namespace proyectoShopmi.Repositorio.Interfaces
 {
     public interface IMarca
     {
-        public Task<IEnumerable<Marca>> GetMarcas()
-        {
-            throw new NotImplementedException();
-        }
+        Task<Marca> GetMarca(int codMarca);
+
+        Task<string> insertMarca(Marca marca);
+
+        Task<string> updateMarca(Marca marca);
 
     }
 }
