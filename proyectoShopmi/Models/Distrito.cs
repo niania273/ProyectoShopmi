@@ -10,9 +10,9 @@ namespace proyectoShopmi.Models
 
         [DisplayName("Nombre del distrito")]
 
-        public string nombredistrito { get; set; }
+        public string nombredistrito { get; set; } = null!;
 
-        public string codpostal { get; set; }
+        public string codpostal { get; set; } = null!;
 
         public bool estdistrito { get; set; }
     }
