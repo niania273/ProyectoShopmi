@@ -4,6 +4,6 @@ namespace proyectoShopmi.Repositorio.Interfaces
 {
     public interface IRol
     {
-        IEnumerable<Rol> getRoles();
+        Task<IEnumerable<Rol>> GetRoles();
     }
 }

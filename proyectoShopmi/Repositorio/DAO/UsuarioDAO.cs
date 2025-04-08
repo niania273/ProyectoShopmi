@@ -12,10 +12,10 @@ namespace proyectoShopmi.Repositorio.DAO
 
         public UsuarioDAO()
         {
-            cadena = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("Conexion") ?? "";
+            cadena = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build().GetConnectionString("Conexion") ?? "";
         }
 
-        public async Task<Usuario> getUsuario(int codUsu)
+        public async Task<Usuario> GetUsuario(int codUsu)
         {
             var sp = "USP_GET_ID_USUARIO";
             var parameters = new DynamicParameters();
@@ -33,14 +33,32 @@ namespace proyectoShopmi.Repositorio.DAO
             }
         }
 
-        public Task<string> insertUsuario(Usuario usuario)
+        public async Task<string> MergeUsuario(Usuario usuario)
         {
-            throw new NotImplementedException();
-        }
+            var sp = "USP_MERGE_USUARIO";
+            var mensaje = "";
+            var parameters = new DynamicParameters();
 
-        public Task<string> updateUsuario(Usuario usuario)
-        {
-            throw new NotImplementedException();
+            parameters.Add("CODUSUARIO", usuario.codUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("APEUSUARIO", usuario.apeUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("NOMUSUARIO", usuario.nomUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("CORUSUARIO", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("CONUSUARIO", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("FECCRE", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("CODEMPLEADO", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("CODROL", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            
+            try
+            {
+                using var conexion = new SqlConnection(cadena);
+                var respuesta = await conexion.ExecuteAsync(sp, parameters);
+                mensaje = $"Se ha generado {respuesta} usuario.";
+                return mensaje;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

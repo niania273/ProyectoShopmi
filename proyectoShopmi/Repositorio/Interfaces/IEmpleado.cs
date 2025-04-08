@@ -4,9 +4,9 @@ namespace proyectoShopmi.Repositorio.Interfaces
 {
     public interface IEmpleado
     {
-        IEnumerable<Empleado> getEmpleados();
-        Empleado getEmpleado(int id);
-        string insertEmpleado(Empleado empleado);
-        string updateEmpleado(Empleado empleado);
+        Task<IEnumerable<Empleado>> GetEmpleados();
+        Task<Empleado> GetEmpleado(int codEmp);
+        Task<string> MergeEmpleado(Empleado empleado);
+        Task<string> DeleteEmpleado(int codEmp);
     }
 }

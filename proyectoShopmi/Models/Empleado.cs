@@ -7,36 +7,36 @@ namespace proyectoShopmi.Models
     {
         [Key]
         [DisplayName("Código")]
-        public int codEmp { get; set; }
+        public int codempleado { get; set; }
         
         [DisplayName("DNI")]
-        public string? numDoc { get; set; }
+        public string? numerodocumento { get; set; }
         
         [DisplayName("Nombres")]
-        public string? nomEmp { get; set; }
+        public string? nombres { get; set; }
         
         [DisplayName("Apellidos")]
-        public string? apeEmp { get; set; }
+        public string? apellidos { get; set; }
         
         [DisplayName("Dirección")]
-        public string? dirEmp { get; set; }
+        public string? direccion { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayName("Fecha de Nacimiento")]
-        public DateTime fechaNac { get; set; }
+        public DateTime fecnac { get; set; }
 
         [DisplayName("Sexo")]
-        public string? sexEmp { get; set; }
+        public string? sexo { get; set; }
 
         [DisplayName("Correo")]
-        public string? corEmp { get; set; }
+        public string? correo { get; set; }
 
         [DisplayName("Estado")]
-        public bool estEmp { get; set; }
+        public bool estempleado { get; set; }
 
         //Relación Empleado y Distrito
         [DisplayName("Distrito")]
-        public int codDis { get; set; }
+        public int coddistrito { get; set; }
         public virtual Distrito Distrito { get; set; }
     }
 }
