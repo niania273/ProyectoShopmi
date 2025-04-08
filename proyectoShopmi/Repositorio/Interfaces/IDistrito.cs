@@ -4,6 +4,6 @@ namespace proyectoShopmi.Repositorio.Interfaces
 {
     public interface IDistrito
     {
-        IEnumerable<Distrito> getDistrito();
+        Task<IEnumerable <Distrito>> getDistrito();
     }
 }
