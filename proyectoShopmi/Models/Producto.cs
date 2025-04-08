@@ -12,13 +12,13 @@ namespace proyectoShopmi.Models
 
 
         [DisplayName("Imagen")]
-        public string imgProducto { get; set; }
+        public string? imgProducto { get; set; }
 
         [DisplayName("Nombre del Producto")]
-        public string nomProducto { get; set; } 
+        public string? nomProducto { get; set; } 
 
         [DisplayName("Descripción")]
-        public string descripcion { get; set; } 
+        public string? descripcion { get; set; } 
 
         [DisplayName("Precio Unitario")]
         public decimal preUni { get; set; }
@@ -45,3 +45,4 @@ namespace proyectoShopmi.Models
         public ICollection<DetallePedido>? DetallePedidos { get; set; }
     }
 }
+
