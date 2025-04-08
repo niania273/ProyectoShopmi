@@ -4,7 +4,7 @@ namespace proyectoShopmi.Repositorio.Interfaces
 {
     public interface IMarca
     {
-        Task<Marca> GetMarca(int codMarca);
+        Task<Marca> getMarca(int codMarca);
 
         Task<string> insertMarca(Marca marca);
 
