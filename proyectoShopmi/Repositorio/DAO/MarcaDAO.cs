@@ -15,7 +15,7 @@ namespace proyectoShopmi.Repositorio.DAO
             cadena = new ConfigurationBuilder().AddJsonFile("appdettings.json").Build().GetConnectionString("Conexion") ?? "";
         }
 
-        public async Task<Marca> GetMarca(int codMarca)
+        public async Task<Marca> getMarca(int codMarca)
         {
             var sp = "USP_GET_ID_MARCA";
             var parameters = new DynamicParameters();
