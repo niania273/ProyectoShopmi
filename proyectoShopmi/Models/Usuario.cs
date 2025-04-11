@@ -31,12 +31,10 @@ namespace proyectoShopmi.Models
         //Relación Usuario y Empleado
         [DisplayName("Referencia Empleado")]
         public int codEmp { get; set; }
-        public virtual Empleado Empleado { get; set; }
 
         //Relación Usuario y Rol
         [DisplayName("Referencia Rol")]
         public int codRol { get; set; }
-        public virtual Rol Rol { get; set; }
 
     }
 }
