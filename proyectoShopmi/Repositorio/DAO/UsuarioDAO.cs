@@ -15,6 +15,21 @@ namespace proyectoShopmi.Repositorio.DAO
             cadena = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build().GetConnectionString("Conexion") ?? "";
         }
 
+        public async Task<IEnumerable<Usuario>> GetUsuarios()
+        {
+            var sp = "USP_GET_USUARIO";
+            try
+            {
+                using var conexion = new SqlConnection(cadena);
+                var listado = await conexion.QueryAsync<Usuario>(sp, commandType: CommandType.StoredProcedure);
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<Usuario> GetUsuario(int codUsu)
         {
             var sp = "USP_GET_ID_USUARIO";
@@ -33,10 +48,9 @@ namespace proyectoShopmi.Repositorio.DAO
             }
         }
 
-        public async Task<string> MergeUsuario(Usuario usuario)
+        public async Task<string> MergeUsuario(Usuario usuario, string accion)
         {
             var sp = "USP_MERGE_USUARIO";
-            var mensaje = "";
             var parameters = new DynamicParameters();
 
             parameters.Add("CODUSUARIO", usuario.codUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
@@ -52,13 +66,31 @@ namespace proyectoShopmi.Repositorio.DAO
             {
                 using var conexion = new SqlConnection(cadena);
                 var respuesta = await conexion.ExecuteAsync(sp, parameters);
-                mensaje = $"Se ha generado {respuesta} usuario.";
-                return mensaje;
+                return $"Se ha realizado la {accion} de {respuesta} usuario.";
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<string> DeleteUsuario(int codUsu){
+            var sp = "USP_DELETE_USUARIO";
+            var parameters = new DynamicParameters();
+
+            parameters.Add("CODUSUARIO", codUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            
+            try
+            {
+                using var conexion = new SqlConnection(cadena);
+                var respuesta = await conexion.ExecuteAsync(sp, parameters);
+                return $"Se ha realizar la eliminación de {respuesta} usuario.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
     }
 }
