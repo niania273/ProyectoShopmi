@@ -4,8 +4,9 @@ namespace proyectoShopmi.Repositorio.Interfaces
 {
     public interface ICliente
     {
-        Task<Cliente> getCliente(int codCliente);
-        Task<string> insertCliente(Cliente cliente);
-        Task<string> updateCliente(Cliente cliente);
+        Task<IEnumerable<Cliente>> GetClientes();
+        Task<Cliente> GetCliente(int codCliente);
+        Task<string> MergeCliente(Cliente cliente);
+        Task<string> DeleteCliente(int codCliente);
     }
 }
