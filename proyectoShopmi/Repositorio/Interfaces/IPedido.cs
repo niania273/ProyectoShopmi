@@ -7,7 +7,7 @@ namespace proyectoShopmi.Repositorio.Interfaces
         Task<IEnumerable<Pedido>> GetPedidos();
 
         Task<Pedido> GetPedido(int codPedido);
-        Task<string> MergePedido(Pedido pedido, string accion);
+        Task<string> MergePedido(Pedido pedido);
         Task<string> DeletePedido(int codPedido);
     }
 }
