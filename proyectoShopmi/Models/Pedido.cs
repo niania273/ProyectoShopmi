@@ -18,6 +18,9 @@ namespace proyectoShopmi.Models
         [DisplayName("Cantidad")]
         public int cantidad { get; set; }
 
+        [DisplayName("Acción del Pedido")]
+        public string actPed { get; set; }
+
         [DisplayName("Estado")]
         public bool estPed { get; set; }
 
