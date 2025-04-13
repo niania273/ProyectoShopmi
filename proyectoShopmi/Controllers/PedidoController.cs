@@ -27,7 +27,7 @@ namespace proyectoShopmi.Controllers
         [HttpPost("registrar")]
         public async Task<ActionResult<string>> RegistrarPedido(Pedido pedido)
         {
-            var mensaje = await Task.Run(() => new PedidoDAO().MergePedido(pedido, "inserción"));
+            var mensaje = await Task.Run(() => new PedidoDAO().MergePedido(pedido));
             return Ok(mensaje);
         }
 
@@ -35,7 +35,7 @@ namespace proyectoShopmi.Controllers
         [HttpPut("actualizar")]
         public async Task<ActionResult<string>> ActualizarPedido(Pedido pedido)
         {
-            var mensaje = await Task.Run(() => new PedidoDAO().MergePedido(pedido, "actualización"));
+            var mensaje = await Task.Run(() => new PedidoDAO().MergePedido(pedido));
             return Ok(mensaje);
         }
 
