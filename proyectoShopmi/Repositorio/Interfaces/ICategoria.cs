@@ -4,9 +4,13 @@ namespace proyectoShopmi.Repositorio.Interfaces
 {
     public interface ICategoria
     {
-        Task<Categoria> getCategoria(int codcategoria);
-        Task<string> insertCategoria(Categoria categoria);
-        Task<string> updateCategoria(Categoria categoria);
+        Task<IEnumerable<Categoria>> GetCategorias();
+
+        Task<Categoria> GetCategoria(int codcategoria);
+
+        Task<string> MergeCategoria(Categoria categoria);
+
+        Task<string> DeleteCategoria(int codcategoria);
 
     }
 }
