@@ -8,11 +8,11 @@ namespace proyectoShopmi.Repositorio.DAO
 {
     public class PedidoDAO : IPedido
     {
-        private readonly string cadena;
+        private readonly string cadena = "";
 
         public PedidoDAO()
         {
-            cadena = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("conexion") ?? "";
+            cadena = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build().GetConnectionString("conexion") ?? "";
         }
 
         public async Task<IEnumerable<Pedido>> GetPedidos()
@@ -49,9 +49,10 @@ namespace proyectoShopmi.Repositorio.DAO
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<string> MergePedido(Pedido pedido, string accion)
+        public async Task<string> MergePedido(Pedido pedido)
         {
             var sp = "USP_MERGE_PEDIDO";
+            var mensaje = "";
             var parameters = new DynamicParameters();
 
             parameters.Add("CODPEDIDO", pedido.codPedido, DbType.Int32, ParameterDirection.Input);
@@ -65,8 +66,9 @@ namespace proyectoShopmi.Repositorio.DAO
             try
             {
                 using var conexion = new SqlConnection(cadena);
-                var resultado = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
-                return $"Se ha realizado la {accion} de {(resultado > 0 ? "1" : "ningún")} pedido.";
+                var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
+                mensaje = $"Se ha generado {respuesta} pedido.";
+                return mensaje;
             }
             catch (Exception ex)
             {
@@ -92,6 +94,5 @@ namespace proyectoShopmi.Repositorio.DAO
                 throw new Exception("Error al eliminar el pedido: " + ex.Message);
             }
         }
-
     }
 }
