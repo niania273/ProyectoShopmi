@@ -70,7 +70,7 @@ namespace proyectoShopmi.Repositorio.DAO
             try
             {
                 using var conexion = new SqlConnection(cadena);
-                var respuesta = await conexion.ExecuteAsync(sp, parameters);
+                var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
                 mensaje = $"Se ha generado {respuesta} producto.";
                 return mensaje;
             }
@@ -92,7 +92,7 @@ namespace proyectoShopmi.Repositorio.DAO
             try
             {
                 using var conexion = new SqlConnection(cadena);
-                var respuesta = await conexion.ExecuteAsync(sp, parameters);
+                var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
                 mensaje = $"Se ha eliminado {respuesta} producto.";
                 return mensaje;
             }
