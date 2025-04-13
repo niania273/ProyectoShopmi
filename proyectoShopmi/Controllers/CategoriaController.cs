@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using proyectoShopmi.Models;
 using proyectoShopmi.Repositorio.DAO;
 using proyectoShopmi.Repositorio.Interfaces;
@@ -7,7 +7,7 @@ namespace proyectoShopmi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : Controller
+    public class CategoriaController : ControllerBase
     {
         // GET: api/<CategoriaController>
         [HttpGet("GetCategorias")]
