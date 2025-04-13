@@ -57,7 +57,7 @@ namespace proyectoShopmi.Repositorio.DAO
             var mensaje = "";
             var parameters = new DynamicParameters();
 
-            parameters.Add("CODPRODCUTO", producto.codProducto, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("CODPRODUCTO", producto.codProducto, DbType.Int32, ParameterDirection.Input);
             parameters.Add("CODCATEGORIA", producto.codCategoria, DbType.Int32, ParameterDirection.Input);
             parameters.Add("IMGPRODUCTO", producto.imgProducto, DbType.String, ParameterDirection.Input);
             parameters.Add("NOMPRODUCTO", producto.nomProducto, DbType.String, ParameterDirection.Input);
