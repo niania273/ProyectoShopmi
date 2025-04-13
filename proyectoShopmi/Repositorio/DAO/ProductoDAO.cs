@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using proyectoShopmi.Models;
@@ -22,7 +22,7 @@ namespace proyectoShopmi.Repositorio.DAO
             try
             {
                 using var conexion = new SqlConnection(cadena);
-                var listado = await conexion.QueryAsync<Producto>(sp);
+                var listado = await conexion.QueryAsync<Producto>(sp, commandType: CommandType.StoredProcedure);
                 return listado;
             }
             catch (Exception ex)
@@ -93,7 +93,7 @@ namespace proyectoShopmi.Repositorio.DAO
             {
                 using var conexion = new SqlConnection(cadena);
                 var respuesta = await conexion.ExecuteAsync(sp, parameters);
-                mensaje = $"Se ha eliminado {respuesta} empleado.";
+                mensaje = $"Se ha eliminado {respuesta} producto.";
                 return mensaje;
             }
             catch (Exception ex)
