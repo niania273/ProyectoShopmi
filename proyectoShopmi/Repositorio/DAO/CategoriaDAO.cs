@@ -8,13 +8,31 @@ namespace proyectoShopmi.Repositorio.DAO
 {
     public class CategoriaDAO : ICategoria
     {
-        private readonly string cadena;
+        private readonly string cadena = "";
 
         public CategoriaDAO()
         {
-            cadena = new ConfigurationBuilder().AddJsonFile("appdettings.json").Build().GetConnectionString("Conexion") ?? "";
+            cadena = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build().GetConnectionString("Conexion") ?? "";
         }
-        public async Task<Categoria> getCategoria(int codcategoria)
+
+        public async Task<IEnumerable<Categoria>> GetCategorias()
+        {
+            var sp = "USP_GET_CATEGORIA";
+
+            try
+            {
+                using var conexion = new SqlConnection(cadena);
+                var listado = await conexion.QueryAsync<Categoria>(sp);
+                return listado;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Categoria> GetCategoria(int codcategoria)
         {
             var sp = "USP_GET_ID_CATEGORIA";
             var parameters = new DynamicParameters();
@@ -32,14 +50,50 @@ namespace proyectoShopmi.Repositorio.DAO
             }
         }
 
-        public Task<string> insertCategoria(Categoria categoria)
+        public async Task<string> MergeCategoria(Categoria categoria)
         {
-            throw new NotImplementedException();
+            var sp = "USP_MERGE_CATEGORIA";
+            var mensaje = "";
+            var parameters = new DynamicParameters();
+
+            parameters.Add("CODCATEGORIA", categoria.codcategoria, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("IMGCATEGORIA", categoria.imgcategoria, DbType.String, ParameterDirection.Input);
+            parameters.Add("NOMCATEGORIA", categoria.nomcategoria, DbType.String, ParameterDirection.Input);
+            parameters.Add("ESTCATEGORIA", categoria.estcategoria, DbType.Boolean, ParameterDirection.Input);
+
+            try
+            {
+                using var conexion = new SqlConnection(cadena);
+                var respuesta = await conexion.ExecuteAsync(sp, parameters);
+                mensaje = $"Se ha generado {respuesta} categoria.";
+                return mensaje;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<string> updateCategoria(Categoria categoria)
+        public async Task<string> DeleteCategoria(int codcategoria)
         {
-            throw new NotImplementedException();
+            var sp = "USP_DELETE_CATEGORIA";
+            var mensaje = "";
+            var parameters = new DynamicParameters();
+            parameters.Add("CODCATEGORIA", codcategoria, DbType.Int32, ParameterDirection.Input);
+
+            try
+            {
+                using var conexion = new SqlConnection(cadena);
+                var respuesta = await conexion.ExecuteAsync(sp, parameters);
+                mensaje = $"Se ha eliminado {respuesta} categoria.";
+                return mensaje;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
