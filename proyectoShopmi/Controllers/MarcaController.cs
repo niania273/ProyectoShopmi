@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using proyectoShopmi.Models;
 using proyectoShopmi.Repositorio.DAO;
 
@@ -6,7 +6,7 @@ namespace proyectoShopmi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MarcaController : Controller
+    public class MarcaController : ControllerBase
     {
         // GET: api/<MarcaController>
         [HttpGet("GetMarcas")]
