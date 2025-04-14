@@ -22,7 +22,7 @@ namespace proyectoShopmi.Repositorio.DAO
             try
             {
                 using var conexion = new SqlConnection(cadena);
-                var listado = await conexion.QueryAsync<Producto>(sp, commandType: CommandType.StoredProcedure);
+                var listado = await conexion.QueryAsync<Producto>(sp);
                 return listado;
             }
             catch (Exception ex)
