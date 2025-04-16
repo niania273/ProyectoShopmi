@@ -317,7 +317,7 @@
     "Parameters": [
       {
         "Name": "pedido",
-        "Type": "proyectoShopmi.Models.Pedido",
+        "Type": "proyectoShopmi.Models.PedidoResponse",
         "IsRequired": true
       }
     ],
@@ -369,7 +369,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Pedido, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.PedidoResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -395,7 +395,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "proyectoShopmi.Models.Pedido",
+        "Type": "proyectoShopmi.Models.PedidoResponse",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -415,7 +415,7 @@
     "Parameters": [
       {
         "Name": "pedido",
-        "Type": "proyectoShopmi.Models.Pedido",
+        "Type": "proyectoShopmi.Models.PedidoResponse",
         "IsRequired": true
       }
     ],

@@ -2,7 +2,7 @@ using proyectoShopmi.Models;
 
 namespace proyectoShopmi.Repositorio.Interfaces
 {
-    public interface IPedido
+    public interface IPedidoRepository
     {
         Task<IEnumerable<Pedido>> GetPedidos();
 

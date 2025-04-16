@@ -560,7 +560,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Pedido"
+                    "$ref": "#/components/schemas/PedidoResponse"
                   }
                 }
               },
@@ -568,7 +568,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Pedido"
+                    "$ref": "#/components/schemas/PedidoResponse"
                   }
                 }
               },
@@ -576,7 +576,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Pedido"
+                    "$ref": "#/components/schemas/PedidoResponse"
                   }
                 }
               }
@@ -607,17 +607,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pedido"
+                  "$ref": "#/components/schemas/PedidoResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pedido"
+                  "$ref": "#/components/schemas/PedidoResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pedido"
+                  "$ref": "#/components/schemas/PedidoResponse"
                 }
               }
             }
@@ -634,17 +634,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoResponse"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoResponse"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoResponse"
               }
             }
           }
@@ -682,17 +682,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoResponse"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoResponse"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoResponse"
               }
             }
           }
@@ -1355,124 +1355,6 @@
         },
         "additionalProperties": false
       },
-      "Cliente": {
-        "type": "object",
-        "properties": {
-          "codcliente": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "numerocomdocumento": {
-            "type": "string",
-            "nullable": true
-          },
-          "apellidos": {
-            "type": "string",
-            "nullable": true
-          },
-          "nombres": {
-            "type": "string",
-            "nullable": true
-          },
-          "direccion": {
-            "type": "string",
-            "nullable": true
-          },
-          "fecnac": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "sexo": {
-            "type": "string",
-            "nullable": true
-          },
-          "correo": {
-            "type": "string",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "boolean"
-          },
-          "estcliente": {
-            "type": "boolean"
-          },
-          "coddistrito": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "distrito": {
-            "$ref": "#/components/schemas/Distrito"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Distrito": {
-        "type": "object",
-        "properties": {
-          "coddsitrito": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "nombredistrito": {
-            "type": "string",
-            "nullable": true
-          },
-          "codpostal": {
-            "type": "string",
-            "nullable": true
-          },
-          "estdistrito": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Empleado": {
-        "type": "object",
-        "properties": {
-          "codempleado": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "numerodocumento": {
-            "type": "string",
-            "nullable": true
-          },
-          "nombres": {
-            "type": "string",
-            "nullable": true
-          },
-          "apellidos": {
-            "type": "string",
-            "nullable": true
-          },
-          "direccion": {
-            "type": "string",
-            "nullable": true
-          },
-          "fecnac": {
-            "type": "string",
-            "format": "date"
-          },
-          "sexo": {
-            "type": "string",
-            "nullable": true
-          },
-          "correo": {
-            "type": "string",
-            "nullable": true
-          },
-          "estempleado": {
-            "type": "boolean"
-          },
-          "coddistrito": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "MarcaResponse": {
         "type": "object",
         "properties": {
@@ -1490,7 +1372,7 @@
         },
         "additionalProperties": false
       },
-      "Pedido": {
+      "PedidoResponse": {
         "type": "object",
         "properties": {
           "codPedido": {
@@ -1520,15 +1402,9 @@
             "type": "integer",
             "format": "int32"
           },
-          "cliente": {
-            "$ref": "#/components/schemas/Cliente"
-          },
           "codEmpleado": {
             "type": "integer",
             "format": "int32"
-          },
-          "empleado": {
-            "$ref": "#/components/schemas/Empleado"
           }
         },
         "additionalProperties": false

@@ -6,7 +6,7 @@ using System.Data;
 
 namespace proyectoShopmi.Repositorio
 {
-    public class PedidoRepository : IPedido
+    public class PedidoRepository : IPedidoRepository
     {
         private readonly string cadena = "";
 

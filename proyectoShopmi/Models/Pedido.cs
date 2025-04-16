@@ -19,19 +19,15 @@ namespace proyectoShopmi.Models
         public int cantidad { get; set; }
 
         [DisplayName("Acción del Pedido")]
-        public string actPed { get; set; }
+        public string? actPed { get; set; }
 
         [DisplayName("Estado")]
         public bool estPed { get; set; }
 
-        //Relación Pedido y Cliente
         [DisplayName("Cliente")]
         public int codCliente { get; set; }
-        public Cliente? Cliente { get; set; }
 
-        //Relación Pedido y Cliente
         [DisplayName("Empleado")]
         public int codEmpleado { get; set; }
-        public Empleado? Empleado { get; set; }
     }
 }

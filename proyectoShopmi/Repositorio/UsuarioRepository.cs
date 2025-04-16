@@ -6,7 +6,7 @@ using proyectoShopmi.Repositorio.Interfaces;
 
 namespace proyectoShopmi.Repositorio
 {
-    public class UsuarioRepository : IUsuario
+    public class UsuarioRepository : IUsuarioRepository
     {
         private readonly string cadena;
 

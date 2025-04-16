@@ -2,7 +2,7 @@
 
 namespace proyectoShopmi.Repositorio.Interfaces
 {
-    public interface IUsuario
+    public interface IUsuarioRepository
     {
         Task<IEnumerable<Usuario>> GetUsuarios();
         Task<Usuario> GetUsuario(int codUsu);
