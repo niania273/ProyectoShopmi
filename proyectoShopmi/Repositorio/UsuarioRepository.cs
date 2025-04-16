@@ -4,13 +4,13 @@ using Microsoft.Data.SqlClient;
 using proyectoShopmi.Models;
 using proyectoShopmi.Repositorio.Interfaces;
 
-namespace proyectoShopmi.Repositorio.DAO
+namespace proyectoShopmi.Repositorio
 {
-    public class UsuarioDAO : IUsuario
+    public class UsuarioRepository : IUsuario
     {
         private readonly string cadena;
 
-        public UsuarioDAO()
+        public UsuarioRepository()
         {
             cadena = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build().GetConnectionString("Conexion") ?? "";
         }
@@ -34,7 +34,7 @@ namespace proyectoShopmi.Repositorio.DAO
         {
             var sp = "USP_GET_ID_USUARIO";
             var parameters = new DynamicParameters();
-            parameters.Add("CODUSUARIO", codUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("CODUSUARIO", codUsu, DbType.Int32, ParameterDirection.Input);
 
             try
             {
@@ -53,14 +53,14 @@ namespace proyectoShopmi.Repositorio.DAO
             var sp = "USP_MERGE_USUARIO";
             var parameters = new DynamicParameters();
 
-            parameters.Add("CODUSUARIO", usuario.codUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
-            parameters.Add("APEUSUARIO", usuario.apeUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
-            parameters.Add("NOMUSUARIO", usuario.nomUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
-            parameters.Add("CORUSUARIO", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
-            parameters.Add("CONUSUARIO", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
-            parameters.Add("FECCRE", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
-            parameters.Add("CODEMPLEADO", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
-            parameters.Add("CODROL", usuario.corUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("CODUSUARIO", usuario.codUsu, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("APEUSUARIO", usuario.apeUsu, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("NOMUSUARIO", usuario.nomUsu, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("CORUSUARIO", usuario.corUsu, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("CONUSUARIO", usuario.corUsu, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("FECCRE", usuario.corUsu, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("CODEMPLEADO", usuario.corUsu, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("CODROL", usuario.corUsu, DbType.Int32, ParameterDirection.Input);
             
             try
             {
@@ -78,7 +78,7 @@ namespace proyectoShopmi.Repositorio.DAO
             var sp = "USP_DELETE_USUARIO";
             var parameters = new DynamicParameters();
 
-            parameters.Add("CODUSUARIO", codUsu, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("CODUSUARIO", codUsu, DbType.Int32, ParameterDirection.Input);
             
             try
             {

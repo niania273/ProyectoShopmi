@@ -4,13 +4,13 @@ using proyectoShopmi.Models;
 using proyectoShopmi.Repositorio.Interfaces;
 using System.Data;
 
-namespace proyectoShopmi.Repositorio.DAO
+namespace proyectoShopmi.Repositorio
 {
-    public class PedidoDAO : IPedido
+    public class PedidoRepository : IPedido
     {
         private readonly string cadena = "";
 
-        public PedidoDAO()
+        public PedidoRepository()
         {
             cadena = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build().GetConnectionString("conexion") ?? "";
         }
@@ -34,7 +34,7 @@ namespace proyectoShopmi.Repositorio.DAO
         {
             var sp = "USP_GET_ID_PEDIDO";
             var parameters = new DynamicParameters();
-            parameters.Add("CODPEDIDO", codPedido, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            parameters.Add("CODPEDIDO", codPedido, DbType.Int32, ParameterDirection.Input);
 
             try
             {

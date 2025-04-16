@@ -4,13 +4,13 @@ using proyectoShopmi.Models;
 using proyectoShopmi.Repositorio.Interfaces;
 using System.Data;
 
-namespace proyectoShopmi.Repositorio.DAO
+namespace proyectoShopmi.Repositorio
 {
-    public class DetallePedidoDAO : IDetallePedido
+    public class DetallePedidoRepository : IDetallePedido
     {
         private readonly string cadena;
 
-        public DetallePedidoDAO()
+        public DetallePedidoRepository()
         {
             cadena = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("conexion") ??"";
 

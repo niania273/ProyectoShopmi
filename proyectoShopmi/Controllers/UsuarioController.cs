@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using proyectoShopmi.Models;
-using proyectoShopmi.Repositorio.DAO;
+using proyectoShopmi.Repositorio;
 
 namespace proyectoShopmi.Controllers
 {
@@ -11,7 +11,7 @@ namespace proyectoShopmi.Controllers
         [HttpGet("listar")]
         public async Task<ActionResult<IEnumerable<Usuario>>> ListarUsuarios()
         {
-            var listado = await Task.Run(() => new UsuarioDAO().GetUsuarios());
+            var listado = await Task.Run(() => new UsuarioRepository().GetUsuarios());
             return Ok(listado);
         }
 
@@ -19,7 +19,7 @@ namespace proyectoShopmi.Controllers
         [HttpGet("listar/{codUsu}")]
         public async Task<ActionResult<Usuario>> BuscarUsuario(int codUsu)
         {
-            var registro = await Task.Run(() => new UsuarioDAO().GetUsuario(codUsu));
+            var registro = await Task.Run(() => new UsuarioRepository().GetUsuario(codUsu));
             return Ok(registro);
         }
 
@@ -27,7 +27,7 @@ namespace proyectoShopmi.Controllers
         [HttpPost("registrar")]
         public async Task<ActionResult<string>> RegistrarUsuario(Usuario usuario)
         {
-            var mensaje = await Task.Run(() => new UsuarioDAO().MergeUsuario(usuario, "inserción"));
+            var mensaje = await Task.Run(() => new UsuarioRepository().MergeUsuario(usuario, "inserción"));
             return Ok(mensaje);
         }
 
@@ -35,7 +35,7 @@ namespace proyectoShopmi.Controllers
         [HttpPut("actualizar")]
         public async Task<ActionResult<string>> ActualizarUsuario(Usuario usuario)
         {
-            var mensaje = await Task.Run(() => new UsuarioDAO().MergeUsuario(usuario, "actualización"));
+            var mensaje = await Task.Run(() => new UsuarioRepository().MergeUsuario(usuario, "actualización"));
             return Ok(mensaje);
         }
 
@@ -43,7 +43,7 @@ namespace proyectoShopmi.Controllers
         [HttpDelete("{codUsu}")]
         public async Task<ActionResult<string>> EliminarUsuario(int codUsu)
         {
-            var mensaje = await Task.Run(() => new EmpleadoDAO().DeleteEmpleado(codUsu));
+            var mensaje = await Task.Run(() => new UsuarioRepository().DeleteUsuario(codUsu));
             return Ok(mensaje);
         }
     }

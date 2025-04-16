@@ -1,72 +1,15 @@
 [
   {
-    "ContainingType": "proyectoShopmi.Controllers.EmpleadoController",
-    "Method": "RegistrarEmpleado",
-    "RelativePath": "api/Empleado",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "empleado",
-        "Type": "proyectoShopmi.Models.Empleado",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "proyectoShopmi.Controllers.EmpleadoController",
-    "Method": "BuscarEmpleado",
-    "RelativePath": "api/Empleado/{codEmp}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "codEmp",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "proyectoShopmi.Models.Empleado",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "proyectoShopmi.Controllers.EmpleadoController",
-    "Method": "ActualizarEmpleado",
-    "RelativePath": "api/Empleado/{codEmp}",
+    "ContainingType": "proyectoShopmi.Controllers.CategoriaController",
+    "Method": "ActualizarCategoria",
+    "RelativePath": "categorias/ActualizarCategoria",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "empleado",
-        "Type": "proyectoShopmi.Models.Empleado",
-        "IsRequired": true
-      },
-      {
-        "Name": "codEmp",
-        "Type": "",
+        "Name": "categoria",
+        "Type": "proyectoShopmi.Models.Response.CategoriaResponse",
         "IsRequired": true
       }
     ],
@@ -83,15 +26,41 @@
     ]
   },
   {
-    "ContainingType": "proyectoShopmi.Controllers.EmpleadoController",
-    "Method": "EliminarEmpleado",
-    "RelativePath": "api/Empleado/{codEmp}",
+    "ContainingType": "proyectoShopmi.Controllers.CategoriaController",
+    "Method": "BuscarCategoria",
+    "RelativePath": "categorias/BuscarCategoria/{codcategoria}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codcategoria",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "proyectoShopmi.Models.Response.CategoriaResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.CategoriaController",
+    "Method": "EliminarCategoria",
+    "RelativePath": "categorias/EliminarCategoria/{codcategoria}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "codEmp",
+        "Name": "codcategoria",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -109,16 +78,534 @@
     ]
   },
   {
-    "ContainingType": "proyectoShopmi.Controllers.EmpleadoController",
-    "Method": "ListarEmpleados",
-    "RelativePath": "api/Empleado/getEmpleados",
+    "ContainingType": "proyectoShopmi.Controllers.CategoriaController",
+    "Method": "ListarCategorias",
+    "RelativePath": "categorias/ListarCategorias",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Empleado, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.CategoriaResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.CategoriaController",
+    "Method": "RegistrarCategoria",
+    "RelativePath": "categorias/RegistrarCategoria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoria",
+        "Type": "proyectoShopmi.Models.Response.CategoriaResponse",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.CategoriaController",
+    "Method": "SelectCategorias",
+    "RelativePath": "categorias/SelectCategorias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.SelectResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.DistritoController",
+    "Method": "SelectDistritos",
+    "RelativePath": "distritos/Distrito/SelectDistritos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.SelectResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.MarcaController",
+    "Method": "ActualizarMarca",
+    "RelativePath": "marcas/ActualizarMarca",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "marca",
+        "Type": "proyectoShopmi.Models.Response.MarcaResponse",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.MarcaController",
+    "Method": "BuscarMarca",
+    "RelativePath": "marcas/BuscarMarca/{codMarca}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codMarca",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "proyectoShopmi.Models.Response.MarcaResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.MarcaController",
+    "Method": "EliminarMarca",
+    "RelativePath": "marcas/EliminarMarca/{codMarca}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codMarca",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.MarcaController",
+    "Method": "ListarMarcas",
+    "RelativePath": "marcas/ListarMarcas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.MarcaResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.MarcaController",
+    "Method": "RegistrarMarca",
+    "RelativePath": "marcas/RegistrarMarca",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "marca",
+        "Type": "proyectoShopmi.Models.Response.MarcaResponse",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.MarcaController",
+    "Method": "SelectMarcas",
+    "RelativePath": "marcas/SelectMarcas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.SelectResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.PedidoController",
+    "Method": "ActualizarPedido",
+    "RelativePath": "pedidos/Pedido/actualizar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pedido",
+        "Type": "proyectoShopmi.Models.Pedido",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.PedidoController",
+    "Method": "EliminarPedido",
+    "RelativePath": "pedidos/Pedido/eliminar/{codPedido}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codPedido",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.PedidoController",
+    "Method": "ListarPedidos",
+    "RelativePath": "pedidos/Pedido/listar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Pedido, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.PedidoController",
+    "Method": "BuscarPedido",
+    "RelativePath": "pedidos/Pedido/listar/{codPedido}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codPedido",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "proyectoShopmi.Models.Pedido",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.PedidoController",
+    "Method": "RegistrarPedido",
+    "RelativePath": "pedidos/Pedido/registrar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pedido",
+        "Type": "proyectoShopmi.Models.Pedido",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.ProductoController",
+    "Method": "EliminarProducto",
+    "RelativePath": "productos/{codProducto}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codProducto",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.ProductoController",
+    "Method": "ActualizarProducto",
+    "RelativePath": "productos/ActualizarProducto",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "producto",
+        "Type": "proyectoShopmi.Models.Request.ProductoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.ProductoController",
+    "Method": "BuscarProducto",
+    "RelativePath": "productos/BuscarProducto/{codProducto}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codProducto",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "proyectoShopmi.Models.Response.ProductoResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.ProductoController",
+    "Method": "ListarProductos",
+    "RelativePath": "productos/ListarProductos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.ProductoResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.ProductoController",
+    "Method": "RegistrarProducto",
+    "RelativePath": "productos/RegistrarProducto",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.ProductoController",
+    "Method": "RegistrarProducto",
+    "RelativePath": "productos/RegistrarProducto",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "producto",
+        "Type": "proyectoShopmi.Models.Request.ProductoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.RolController",
+    "Method": "SelectRoles",
+    "RelativePath": "roles/SelectRoles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.SelectResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.SucursalController",
+    "Method": "SelectSucursales",
+    "RelativePath": "sucursales/SelectSucursales",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.SelectResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

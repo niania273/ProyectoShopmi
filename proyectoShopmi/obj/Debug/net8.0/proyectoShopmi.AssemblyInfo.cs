@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("proyectoShopmi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7d07e2a8b67dbce3a5d6fcd7de9ff43c9abe62a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee5321322134a0da808642d8efeb21507c98bc54")]
 [assembly: System.Reflection.AssemblyProductAttribute("proyectoShopmi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("proyectoShopmi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

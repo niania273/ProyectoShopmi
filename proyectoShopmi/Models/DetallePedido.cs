@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using proyectoShopmi.Models.Response;
 
 namespace proyectoShopmi.Models
 {
@@ -25,6 +26,6 @@ namespace proyectoShopmi.Models
 
         // Relacion de Pedido y Producto 
         public Pedido? Pedido { get; set; }
-        public Producto? Producto { get; set; }
+        public ProductoResponse? Producto { get; set; }
     }
 }

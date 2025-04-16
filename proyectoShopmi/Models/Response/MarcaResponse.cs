@@ -1,14 +1,16 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace proyectoShopmi.Models
+namespace proyectoShopmi.Models.Response
 {
-    public class Marca
+    public class MarcaResponse
     {
         [Key]
+        [DisplayName("Código")]
         public int codMarca { get; set; }
-        [DisplayName("Nombre de la Marca")]
+        [DisplayName("Nombre")]
         public string? nombremarca { get; set; }
+        [DisplayName("Estado")]
         public bool estmarca { get; set; }
     }
 } 

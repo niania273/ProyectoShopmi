@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using proyectoShopmi.Models;
-using proyectoShopmi.Repositorio.DAO;
+using proyectoShopmi.Repositorio;
 
 namespace proyectoShopmi.Controllers
 {
@@ -11,7 +11,7 @@ namespace proyectoShopmi.Controllers
         [HttpGet("listar")]
         public async Task<ActionResult<IEnumerable<Pedido>>> ListarPedidos()
         {
-            var listado = await Task.Run(() => new PedidoDAO().GetPedidos());
+            var listado = await Task.Run(() => new PedidoRepository().GetPedidos());
             return Ok(listado);
         }
 
@@ -19,7 +19,7 @@ namespace proyectoShopmi.Controllers
         [HttpGet("listar/{codPedido}")]
         public async Task<ActionResult<Pedido>> BuscarPedido(int codPedido)
         {
-            var registro = await Task.Run(() => new PedidoDAO().GetPedido(codPedido));
+            var registro = await Task.Run(() => new PedidoRepository().GetPedido(codPedido));
             return Ok(registro);
         }
 
@@ -27,7 +27,7 @@ namespace proyectoShopmi.Controllers
         [HttpPost("registrar")]
         public async Task<ActionResult<string>> RegistrarPedido(Pedido pedido)
         {
-            var mensaje = await Task.Run(() => new PedidoDAO().MergePedido(pedido));
+            var mensaje = await Task.Run(() => new PedidoRepository().MergePedido(pedido));
             return Ok(mensaje);
         }
 
@@ -35,7 +35,7 @@ namespace proyectoShopmi.Controllers
         [HttpPut("actualizar")]
         public async Task<ActionResult<string>> ActualizarPedido(Pedido pedido)
         {
-            var mensaje = await Task.Run(() => new PedidoDAO().MergePedido(pedido));
+            var mensaje = await Task.Run(() => new PedidoRepository().MergePedido(pedido));
             return Ok(mensaje);
         }
 
@@ -43,7 +43,7 @@ namespace proyectoShopmi.Controllers
         [HttpDelete("eliminar/{codPedido}")]
         public async Task<ActionResult<string>> EliminarPedido(int codPedido)
         {
-            var mensaje = await Task.Run(() => new PedidoDAO().DeletePedido(codPedido));
+            var mensaje = await Task.Run(() => new PedidoRepository().DeletePedido(codPedido));
             return Ok(mensaje);
         }
 

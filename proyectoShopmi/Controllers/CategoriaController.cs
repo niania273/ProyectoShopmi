@@ -1,51 +1,86 @@
 using Microsoft.AspNetCore.Mvc;
-using proyectoShopmi.Models;
-using proyectoShopmi.Repositorio.DAO;
+using proyectoShopmi.Models.Response;
 using proyectoShopmi.Repositorio.Interfaces;
 
 namespace proyectoShopmi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("categorias/")]
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-        // GET: api/<CategoriaController>
-        [HttpGet("GetCategorias")]
-        public async Task<ActionResult<IEnumerable<Categoria>>> ListarCategorias()
+        private readonly ICategoriaRepository _categoriaRepository;
+
+        public CategoriaController(ICategoriaRepository categoriaRepository)
         {
-            var listado = await Task.Run(() => new CategoriaDAO().GetCategorias());
-            return Ok(listado);
+            _categoriaRepository = categoriaRepository;
         }
 
-        // GET: api/<CategoriaController>/5
-        [HttpGet("{codcategoria}")]
-        public async Task<ActionResult<Categoria>> BuscarCategoria(int codcategoria)
+        // GET: categorias/ListarCategorias
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<CategoriaResponse>>> ListarCategorias()
         {
-            var registro = await Task.Run(() => new CategoriaDAO().GetCategoria(codcategoria));
+            var response = await _categoriaRepository.GetCategorias();
+
+            if (response == null)
+            {
+                return BadRequest("¡Error! No se encontraron categorías.");
+            }
+
+            return Ok(response);
+        }
+
+        // GET: categorias/SelectCategorias
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<SelectResponse>>> SelectCategorias()
+        {
+            var response = await _categoriaRepository.SelectCategorias();
+            return Ok(response);
+        }
+
+        // GET: categorias/BuscarCategoria
+        [HttpGet("[action]/{codcategoria}")]
+        public async Task<ActionResult<CategoriaResponse>> BuscarCategoria(int codcategoria)
+        {
+            var registro = await _categoriaRepository.GetCategoria(codcategoria);
             return Ok(registro);
         }
 
-        // POST api/<CategoriaController>
-        [HttpPost]
-        public async Task<ActionResult<string>> RegistrarCategoria([FromBody] Categoria categoria)
+        // POST categorias/RegistrarCategoria
+        [HttpPost("[action]")]
+        public async Task<ActionResult<string>> RegistrarCategoria( CategoriaResponse categoria)
         {
-            var mensaje = await Task.Run(() => new CategoriaDAO().MergeCategoria(categoria));
+            if (categoria == null)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+
+            var mensaje = await _categoriaRepository.MergeCategoria(categoria, "inserción");
             return Ok(mensaje);
         }
 
-        // PUT api/<CategoriaController>/5
-        [HttpPut("{codcategoria}")]
-        public async Task<ActionResult<string>> ActualizarCategoria([FromBody] Categoria categoria)
+        // PUT categorias/ActualizarCategoria
+        [HttpPut("[action]")]
+        public async Task<ActionResult<string>> ActualizarCategoria( CategoriaResponse categoria)
         {
-            var mensaje = await Task.Run(() => new CategoriaDAO().MergeCategoria(categoria));
+            if (categoria == null)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+
+            var mensaje = await _categoriaRepository.MergeCategoria(categoria, "actualización");
             return Ok(mensaje);
         }
 
-        // DELETE api/<CategoriaController>/5
-        [HttpDelete("{codcategoria}")]
+        // DELETE categorias/EliminarCategoria
+        [HttpDelete("[action]/{codcategoria}")]
         public async Task<ActionResult<string>> EliminarCategoria(int codcategoria)
         {
-            var mensaje = await Task.Run(() => new CategoriaDAO().DeleteCategoria(codcategoria));
+            if (codcategoria == 0)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+
+            var mensaje = await _categoriaRepository.DeleteCategoria(codcategoria);
             return Ok(mensaje);
         }
     }

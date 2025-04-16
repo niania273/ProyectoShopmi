@@ -1,51 +1,87 @@
 using Microsoft.AspNetCore.Mvc;
-using proyectoShopmi.Models;
-using proyectoShopmi.Repositorio.DAO;
+using proyectoShopmi.Models.Request;
+using proyectoShopmi.Models.Response;
+using proyectoShopmi.Repositorio.Interfaces;
 
 namespace proyectoShopmi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("productos/")]
     [ApiController]
     public class ProductoController : ControllerBase
     {
-        // GET: api/<ProductoController>
-        [HttpGet("GetProductos")]
+        private readonly IProductoRepository _productoRepository;
 
-        public async Task<ActionResult<IEnumerable<Producto>>> ListarProductos()
+        public ProductoController(IProductoRepository productoRepository)
         {
-            var listado = await Task.Run(() => new ProductoDAO().GetProductos());
-            return Ok(listado);
+            _productoRepository = productoRepository;
         }
 
-        // GET api/<ProductoController>/5
-        [HttpGet("{codProducto}")]
-        public async Task<ActionResult<Producto>> BuscarProducto(int codProducto)
+        // GET: productos/ListarProductos
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<ProductoResponse>>> ListarProductos()
         {
-            var registro = await Task.Run(() => new ProductoDAO().GetProducto(codProducto));
+            var response = await _productoRepository.GetProductos();
+
+            if (response == null)
+            {
+                return BadRequest("¡Error! No se encontraron productos.");
+            }
+
+            return Ok(response);
+        }
+
+        // GET productos/BuscarProducto/5
+        [HttpGet("[action]/{codProducto}")]
+        public async Task<ActionResult<ProductoResponse>> BuscarProducto(int codProducto)
+        {
+            if (codProducto == 0)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+
+            var registro = await _productoRepository.GetProducto(codProducto);
             return Ok(registro);
         }
 
-        // POST api/<ProductoController>
-        [HttpPost]
-        public async Task<ActionResult<string>> RegistrarProducto([FromBody] Producto producto)
+        // GET productos/RegistrarProducto
+        [HttpGet("[action]")]
+        public async Task<ActionResult<string>> RegistrarProducto()
         {
-            var mensaje = await Task.Run(() => new ProductoDAO().MergeProducto(producto));
+            
+            return Ok(await Task.Run( () => new ProductoRequest()));
+        }
+
+        // POST productos/RegistrarProducto
+        [HttpPost("[action]")]
+        public async Task<ActionResult<string>> RegistrarProducto(ProductoRequest producto)
+        {
+            if (producto == null)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+
+            var mensaje = await _productoRepository.MergeProducto(producto, "inserción");
             return Ok(mensaje);
         }
 
-        // PUT api/<ProductoController>/5
-        [HttpPut("{codProducto}")]
-        public async Task<ActionResult<string>> ActualizarProducto([FromBody] Producto producto)
+        // PUT productos/ActualizarProducto
+        [HttpPut("[action]")]
+        public async Task<ActionResult<string>> ActualizarProducto(ProductoRequest producto)
         {
-            var mensaje = await Task.Run(() => new ProductoDAO().MergeProducto(producto));
+            var mensaje = await _productoRepository.MergeProducto(producto, "actualización");
             return Ok(mensaje);
         }
 
-        // DELETE api/<ProductoController>/5
+        // DELETE productos/EliminarProducto/5
         [HttpDelete("{codProducto}")]
         public async Task<ActionResult<string>> EliminarProducto(int codProducto)
         {
-            var mensaje = await Task.Run(() => new ProductoDAO().DeleteProducto(codProducto));
+            if (codProducto == 0)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+
+            var mensaje = await _productoRepository.DeleteProducto(codProducto);
             return Ok(mensaje);
         }
     }

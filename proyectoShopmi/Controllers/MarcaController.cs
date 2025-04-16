@@ -1,50 +1,89 @@
 using Microsoft.AspNetCore.Mvc;
-using proyectoShopmi.Models;
-using proyectoShopmi.Repositorio.DAO;
+using proyectoShopmi.Models.Response;
+using proyectoShopmi.Repositorio.Interfaces;
 
 namespace proyectoShopmi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("marcas/")]
     [ApiController]
     public class MarcaController : ControllerBase
     {
-        // GET: api/<MarcaController>
-        [HttpGet("GetMarcas")]
-        public async Task<ActionResult<IEnumerable<Marca>>> ListarMarcas()
+        private readonly IMarcaRepository _marcaRepository;
+
+        public MarcaController(IMarcaRepository marcaRepository)
         {
-            var listado = await Task.Run(() => new MarcaDAO().GetMarcas());
-            return Ok(listado);
+            _marcaRepository = marcaRepository;
         }
 
-        // GET api/<MarcaController>/3
-        [HttpGet("{codMarca}")]
-        public async Task<ActionResult<Marca>> BuscarMarca(int codMarca)
+        // GET: marcas/ListarMarcas
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<MarcaResponse>>> ListarMarcas()
         {
-            var registro = await Task.Run(() => new MarcaDAO().GetMarca(codMarca));
-            return Ok(registro);
+            var response = await _marcaRepository.GetMarcas();
+            
+            if (response == null)
+            {
+                return BadRequest("¡Error! No se encontraron marcas.");
+            }
+
+            return Ok(response);
         }
 
-        // POST api/<MarcaController>
-        [HttpPost]
-        public async Task<ActionResult<string>> RegistrarMarca([FromBody] Marca marca)
+        // GET: marcas/SelectMarcas
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<SelectResponse>>> SelectMarcas()
         {
-            var mensaje = await Task.Run(() => new MarcaDAO().MergeMarca(marca));
+            var response = await _marcaRepository.SelectMarcas();
+            return Ok(response);
+        }
+
+        // GET marcas/BuscarMarca
+        [HttpGet("[action]/{codMarca}")]
+        public async Task<ActionResult<MarcaResponse>> BuscarMarca(int codMarca)
+        {
+            var response = await _marcaRepository.GetMarca(codMarca);
+
+            if (response == null)
+            {
+                return BadRequest("¡Error! No se encontraron marcas.");
+            }
+
+            return Ok(response);
+        }
+
+        // POST marcas/RegistrarMarca
+        [HttpPost("[action]")]
+        public async Task<ActionResult<string>> RegistrarMarca(MarcaResponse marca)
+        {
+            if (marca == null)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+            var mensaje = await _marcaRepository.MergeMarca(marca, "inserción");
             return Ok(mensaje);
         }
 
-        // PUT api/<MarcaController>/3
-        [HttpPut("{codMarca}")]
-        public async Task<ActionResult<string>> ActualizarMarca([FromBody] Marca marca)
+        // PUT marcas/ActualizarMarca
+        [HttpPut("[action]")]
+        public async Task<ActionResult<string>> ActualizarMarca(MarcaResponse marca)
         {
-            var mensaje = await Task.Run(() => new MarcaDAO().MergeMarca(marca));
+            if (marca == null)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+            var mensaje = await _marcaRepository.MergeMarca(marca, "actualización");
             return Ok(mensaje);
         }
 
-        // DELETE api/<MarcaController>/3
-        [HttpDelete("{codMarca}")]
+        // DELETE marcas/EliminarMarca
+        [HttpDelete("[action]/{codMarca}")]
         public async Task<ActionResult<string>> EliminarMarca(int codMarca)
         {
-            var mensaje = await Task.Run(() => new MarcaDAO().DeleteMarca(codMarca));
+            if (codMarca == 0)
+            {
+                return BadRequest("¡Error! Ingresar datos válidos.");
+            }
+            var mensaje = await _marcaRepository.DeleteMarca(codMarca);
             return Ok(mensaje);
         }
     }

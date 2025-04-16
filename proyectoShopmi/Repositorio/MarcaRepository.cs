@@ -1,28 +1,45 @@
 using System.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using proyectoShopmi.Models;
+using proyectoShopmi.Models.Response;
 using proyectoShopmi.Repositorio.Interfaces;
 
-namespace proyectoShopmi.Repositorio.DAO
+namespace proyectoShopmi.Repositorio
 {
-    public class MarcaDAO : IMarca
+    public class MarcaRepository : IMarcaRepository
     {
-        private readonly string cadena = "";
-
-        public MarcaDAO()
+        private readonly IConfiguration _config;
+        private readonly string _cadena;
+        public MarcaRepository(IConfiguration config)
         {
-            cadena = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build().GetConnectionString("Conexion") ?? "";
+            _config = config;
+            _cadena = _config.GetConnectionString("Conexion") ?? "";
         }
 
-        public async Task<IEnumerable<Marca>> GetMarcas()
+        public async Task<IEnumerable<MarcaResponse>> GetMarcas()
         {
             var sp = "USP_GET_MARCA";
-
             try
             {
-                using var conexion = new SqlConnection(cadena);
-                var listado = await conexion.QueryAsync<Marca>(sp);
+                using var conexion = new SqlConnection(_cadena);
+                var listado = await conexion.QueryAsync<MarcaResponse>(sp);
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<IEnumerable<SelectResponse>> SelectMarcas()
+        {
+            var sp = "USP_GET_MARCA";
+            var parameters = new DynamicParameters();
+            parameters.Add("EST", 1, DbType.Boolean, ParameterDirection.Input);
+            try
+            {
+                using var conexion = new SqlConnection(_cadena);
+                var listado = await conexion.QueryAsync<SelectResponse>(sp, parameters);
                 return listado;
             }
             catch (Exception ex)
@@ -31,45 +48,40 @@ namespace proyectoShopmi.Repositorio.DAO
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<Marca> GetMarca(int codMarca)
+
+        public async Task<MarcaResponse> GetMarca(int codMarca)
         {
             var sp = "USP_GET_ID_MARCA";
             var parameters = new DynamicParameters();
             parameters.Add("CODMARCA", codMarca, DbType.Int32, ParameterDirection.Input);
-
             try
             {
-                using var conexion = new SqlConnection(cadena);
-                var registro = await conexion.QueryFirstOrDefaultAsync<Marca>(sp, parameters, commandType: CommandType.StoredProcedure);
+                using var conexion = new SqlConnection(_cadena);
+                var registro = await conexion.QueryFirstOrDefaultAsync<MarcaResponse>(sp, parameters, commandType: CommandType.StoredProcedure);
                 return registro;
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
 
-        public async Task<string> MergeMarca(Marca marca)
+        public async Task<string> MergeMarca(MarcaResponse marca, string accion)
         {
             var sp = "USP_MERGE_MARCA";
-            var mensaje = "";
             var parameters = new DynamicParameters();
 
             parameters.Add("CODMARCA", marca.codMarca, DbType.Int32, ParameterDirection.Input);
             parameters.Add("NOMBREMARCA", marca.nombremarca, DbType.String, ParameterDirection.Input);
             parameters.Add("ESTMARCA", marca.estmarca, DbType.Boolean, ParameterDirection.Input);
-
             try
             {
-                using var conexion = new SqlConnection(cadena);
+                using var conexion = new SqlConnection(_cadena);
                 var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
-                mensaje = $"Se ha generado {respuesta} marca.";
-                return mensaje;
+                return $"Se ha realizado la {accion} de {respuesta} marca.";
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
@@ -77,20 +89,16 @@ namespace proyectoShopmi.Repositorio.DAO
         public async Task<string> DeleteMarca(int codMarca)
         {
             var sp = "USP_DELETE_MARCA";
-            var mensaje = "";
             var parameters = new DynamicParameters();
             parameters.Add("CODMARCA", codMarca, DbType.Int32, ParameterDirection.Input);
-
             try
             {
-                using var conexion = new SqlConnection(cadena);
+                using var conexion = new SqlConnection(_cadena);
                 var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
-                mensaje = $"Se ha eliminado {respuesta} marca.";
-                return mensaje;
+                return $"Se ha realizado la eliminación de {respuesta} marca.";
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
