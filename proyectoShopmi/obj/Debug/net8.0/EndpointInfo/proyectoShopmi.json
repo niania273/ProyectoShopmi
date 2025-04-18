@@ -5,6 +5,68 @@
     "version": "1.0"
   },
   "paths": {
+    "/inicio/registrarse": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRequestRegistro"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRequestRegistro"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRequestRegistro"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/inicio/iniciarsesion": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRequestLogin"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRequestLogin"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRequestLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/categorias/ListarCategorias": {
       "get": {
         "tags": [
@@ -560,7 +622,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PedidoResponse"
+                    "$ref": "#/components/schemas/Pedido"
                   }
                 }
               },
@@ -568,7 +630,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PedidoResponse"
+                    "$ref": "#/components/schemas/Pedido"
                   }
                 }
               },
@@ -576,7 +638,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PedidoResponse"
+                    "$ref": "#/components/schemas/Pedido"
                   }
                 }
               }
@@ -607,17 +669,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/PedidoResponse"
+                  "$ref": "#/components/schemas/Pedido"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PedidoResponse"
+                  "$ref": "#/components/schemas/Pedido"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PedidoResponse"
+                  "$ref": "#/components/schemas/Pedido"
                 }
               }
             }
@@ -634,17 +696,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PedidoResponse"
+                "$ref": "#/components/schemas/Pedido"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PedidoResponse"
+                "$ref": "#/components/schemas/Pedido"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PedidoResponse"
+                "$ref": "#/components/schemas/Pedido"
               }
             }
           }
@@ -682,17 +744,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PedidoResponse"
+                "$ref": "#/components/schemas/Pedido"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PedidoResponse"
+                "$ref": "#/components/schemas/Pedido"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PedidoResponse"
+                "$ref": "#/components/schemas/Pedido"
               }
             }
           }
@@ -1002,44 +1064,6 @@
         }
       }
     },
-    "/roles/SelectRoles": {
-      "get": {
-        "tags": [
-          "Rol"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SelectResponse"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SelectResponse"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SelectResponse"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/sucursales/SelectSucursales": {
       "get": {
         "tags": [
@@ -1071,220 +1095,6 @@
                   "items": {
                     "$ref": "#/components/schemas/SelectResponse"
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/usuarios/Usuario/listar": {
-      "get": {
-        "tags": [
-          "Usuario"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Usuario"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Usuario"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Usuario"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/usuarios/Usuario/listar/{codUsu}": {
-      "get": {
-        "tags": [
-          "Usuario"
-        ],
-        "parameters": [
-          {
-            "name": "codUsu",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/usuarios/Usuario/registrar": {
-      "post": {
-        "tags": [
-          "Usuario"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Usuario"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Usuario"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Usuario"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/usuarios/Usuario/actualizar": {
-      "put": {
-        "tags": [
-          "Usuario"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Usuario"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Usuario"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Usuario"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/usuarios/Usuario/{codUsu}": {
-      "delete": {
-        "tags": [
-          "Usuario"
-        ],
-        "parameters": [
-          {
-            "name": "codUsu",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
                 }
               }
             }
@@ -1372,7 +1182,7 @@
         },
         "additionalProperties": false
       },
-      "PedidoResponse": {
+      "Pedido": {
         "type": "object",
         "properties": {
           "codPedido": {
@@ -1440,12 +1250,12 @@
             "type": "boolean"
           },
           "codCategoria": {
-            "type": "string",
-            "nullable": true
+            "type": "integer",
+            "format": "int32"
           },
           "codMarca": {
-            "type": "string",
-            "nullable": true
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1505,45 +1315,53 @@
         },
         "additionalProperties": false
       },
-      "Usuario": {
+      "UsuarioRequestLogin": {
         "type": "object",
         "properties": {
-          "codUsu": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "nomUsu": {
+          "correo": {
             "type": "string",
             "nullable": true
           },
-          "apeUsu": {
+          "contrasenia": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsuarioRequestRegistro": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
             "type": "string",
             "nullable": true
           },
-          "corUsu": {
+          "apellido": {
             "type": "string",
             "nullable": true
           },
-          "conUsu": {
+          "nombre": {
             "type": "string",
             "nullable": true
           },
-          "fecCre": {
+          "fechaNacimiento": {
             "type": "string",
-            "format": "date-time",
+            "format": "date-time"
+          },
+          "sexo": {
+            "type": "string"
+          },
+          "telefono": {
+            "type": "string",
             "nullable": true
           },
-          "estUsu": {
+          "correo": {
             "type": "string",
             "nullable": true
           },
-          "codEmp": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codRol": {
-            "type": "integer",
-            "format": "int32"
+          "contrasenia": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

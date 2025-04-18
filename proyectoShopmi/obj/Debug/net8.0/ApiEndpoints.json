@@ -164,6 +164,38 @@
     ]
   },
   {
+    "ContainingType": "proyectoShopmi.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "inicio/iniciarsesion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reg",
+        "Type": "proyectoShopmi.Models.Request.UsuarioRequestLogin",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "proyectoShopmi.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "inicio/registrarse",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reg",
+        "Type": "proyectoShopmi.Models.Request.UsuarioRequestRegistro",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "proyectoShopmi.Controllers.MarcaController",
     "Method": "ActualizarMarca",
     "RelativePath": "marcas/ActualizarMarca",
@@ -317,7 +349,7 @@
     "Parameters": [
       {
         "Name": "pedido",
-        "Type": "proyectoShopmi.Models.PedidoResponse",
+        "Type": "proyectoShopmi.Models.Pedido",
         "IsRequired": true
       }
     ],
@@ -369,7 +401,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.PedidoResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Pedido, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -395,7 +427,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "proyectoShopmi.Models.PedidoResponse",
+        "Type": "proyectoShopmi.Models.Pedido",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -415,7 +447,7 @@
     "Parameters": [
       {
         "Name": "pedido",
-        "Type": "proyectoShopmi.Models.PedidoResponse",
+        "Type": "proyectoShopmi.Models.Pedido",
         "IsRequired": true
       }
     ],
@@ -576,26 +608,6 @@
     ]
   },
   {
-    "ContainingType": "proyectoShopmi.Controllers.RolController",
-    "Method": "SelectRoles",
-    "RelativePath": "roles/SelectRoles",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.SelectResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "proyectoShopmi.Controllers.SucursalController",
     "Method": "SelectSucursales",
     "RelativePath": "sucursales/SelectSucursales",
@@ -606,130 +618,6 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Response.SelectResponse, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "proyectoShopmi.Controllers.UsuarioController",
-    "Method": "EliminarUsuario",
-    "RelativePath": "usuarios/Usuario/{codUsu}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "codUsu",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "proyectoShopmi.Controllers.UsuarioController",
-    "Method": "ActualizarUsuario",
-    "RelativePath": "usuarios/Usuario/actualizar",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "usuario",
-        "Type": "proyectoShopmi.Models.Usuario",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "proyectoShopmi.Controllers.UsuarioController",
-    "Method": "ListarUsuarios",
-    "RelativePath": "usuarios/Usuario/listar",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Usuario, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "proyectoShopmi.Controllers.UsuarioController",
-    "Method": "BuscarUsuario",
-    "RelativePath": "usuarios/Usuario/listar/{codUsu}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "codUsu",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "proyectoShopmi.Models.Usuario",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "proyectoShopmi.Controllers.UsuarioController",
-    "Method": "RegistrarUsuario",
-    "RelativePath": "usuarios/Usuario/registrar",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "usuario",
-        "Type": "proyectoShopmi.Models.Usuario",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
         "MediaTypes": [
           "text/plain",
           "application/json",

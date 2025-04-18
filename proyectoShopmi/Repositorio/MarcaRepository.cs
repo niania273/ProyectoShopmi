@@ -19,10 +19,12 @@ namespace proyectoShopmi.Repositorio
         public async Task<IEnumerable<MarcaResponse>> GetMarcas()
         {
             var sp = "USP_GET_MARCA";
+            var parameters = new DynamicParameters();
+            parameters.Add("ESTMARCA", false, DbType.Boolean, ParameterDirection.Input);
             try
             {
                 using var conexion = new SqlConnection(_cadena);
-                var listado = await conexion.QueryAsync<MarcaResponse>(sp);
+                var listado = await conexion.QueryAsync<MarcaResponse>(sp, parameters);
                 return listado;
             }
             catch (Exception ex)
@@ -35,7 +37,7 @@ namespace proyectoShopmi.Repositorio
         {
             var sp = "USP_GET_MARCA";
             var parameters = new DynamicParameters();
-            parameters.Add("EST", 1, DbType.Boolean, ParameterDirection.Input);
+            parameters.Add("ESTMARCA", true, DbType.Boolean, ParameterDirection.Input);
             try
             {
                 using var conexion = new SqlConnection(_cadena);

@@ -28,9 +28,9 @@ namespace proyectoShopmi.Models.Request
         public bool estProducto { get; set; }
 
         [DisplayName("Categoría")]
-        public string? codCategoria { get; set; }
+        public int codCategoria { get; set; }
 
         [DisplayName("Marca")]
-        public string? codMarca { get; set; }
+        public int codMarca { get; set; }
     }
 }

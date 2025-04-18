@@ -1,5 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using proyectoShopmi.Models;
 using proyectoShopmi.Repositorio;
 using proyectoShopmi.Repositorio.Interfaces;
+using proyectoShopmi.Repositorio.Stores;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +27,39 @@ builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IDistritoRepository, DistritoRepository>();
 builder.Services.AddScoped<ISucursalRepository, SucursalRepository>();
+builder.Services.AddScoped<IJwtTokenRepository, JwtTokenRepository>();
+
+// Configuración de Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+    .AddUserStore<CustomUserStore>()
+    .AddRoleStore<CustomRoleStore>() // Asegúrate de usar CustomRoleStore aquí
+    .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllers();
 // Aprende más sobre Swagger/OpenAPI en https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+////Autenticación
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
 
 var app = builder.Build();
 
@@ -42,7 +76,7 @@ app.UseHttpsRedirection();
 
 //// Usa la política CORS
 app.UseCors();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

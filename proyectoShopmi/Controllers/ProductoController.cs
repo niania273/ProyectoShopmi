@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using proyectoShopmi.Models.Request;
 using proyectoShopmi.Models.Response;
@@ -17,6 +18,7 @@ namespace proyectoShopmi.Controllers
         }
 
         // GET: productos/ListarProductos
+        [Authorize]
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<ProductoResponse>>> ListarProductos()
         {
@@ -53,7 +55,7 @@ namespace proyectoShopmi.Controllers
 
         // POST productos/RegistrarProducto
         [HttpPost("[action]")]
-        public async Task<ActionResult<string>> RegistrarProducto(ProductoRequest producto)
+        public async Task<ActionResult<string>> RegistrarProducto([FromBody] ProductoRequest producto)
         {
             if (producto == null)
             {
@@ -61,15 +63,17 @@ namespace proyectoShopmi.Controllers
             }
 
             var mensaje = await _productoRepository.MergeProducto(producto, "inserción");
-            return Ok(mensaje);
+            Console.WriteLine($"Mensaje de respuesta: {mensaje ?? "null"}");
+            return Ok(new { mensaje = mensaje });
         }
 
         // PUT productos/ActualizarProducto
         [HttpPut("[action]")]
-        public async Task<ActionResult<string>> ActualizarProducto(ProductoRequest producto)
+        public async Task<ActionResult<string>> ActualizarProducto([FromBody] ProductoRequest producto)
         {
             var mensaje = await _productoRepository.MergeProducto(producto, "actualización");
-            return Ok(mensaje);
+            Console.WriteLine($"Mensaje de respuesta: {mensaje ?? "null"}");
+            return Ok(new { mensaje = mensaje });
         }
 
         // DELETE productos/EliminarProducto/5

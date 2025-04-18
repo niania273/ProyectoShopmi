@@ -69,11 +69,10 @@ namespace proyectoShopmi.Repositorio
             {
                 using var conexion = new SqlConnection(_cadena);
                 var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
-                return $"Se ha realizadó la {accion} de {respuesta} producto.";
+                return $"Se ha realizado la {accion} de {respuesta} producto.";
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
 
