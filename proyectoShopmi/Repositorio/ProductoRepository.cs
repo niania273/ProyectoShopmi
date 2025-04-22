@@ -32,6 +32,23 @@ namespace proyectoShopmi.Repositorio
             }
         }
 
+         //LISTAR PRODUCTOS POR CATEGORIA
+         public async Task<IEnumerable<ProductoResponse>> GetProductosPorCategoria(int codCategoria)
+         {
+             var sp = "USP_GET_PRODUCTO_POR_CATEGORIA";
+        
+             try
+             {
+                 using var conexion = new SqlConnection(_cadena);
+                 var listado = await conexion.QueryAsync<ProductoResponse>(sp,new { CodCategoria = codCategoria },commandType: CommandType.StoredProcedure);
+                 return listado;
+             }
+             catch (Exception ex)
+             {
+                 throw new Exception(ex.Message);
+             }
+         }
+
         public async Task<ProductoResponse> GetProducto(int codProducto)
         {
             var sp = "USP_GET_ID_PRODUCTO";
