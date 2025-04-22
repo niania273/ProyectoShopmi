@@ -6,17 +6,16 @@ using System.Data;
 
 namespace proyectoShopmi.Repositorio
 {
-    public class DetallePedidoRepository : IDetallePedido
+    public class DetallePedidoRepository : IDetallePedidoRepository
     {
-        private readonly string cadena;
-
-        public DetallePedidoRepository()
+        private readonly IConfiguration _config;
+        private readonly string _cadena;
+        public DetallePedidoRepository(IConfiguration config)
         {
-            cadena = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("conexion") ??"";
-
-
+            _config = config;
+            _cadena = _config.GetConnectionString("Conexion") ?? "";
         }
-        public async Task<DetallePedido> getDetallePedido(int codPedido, int codProducto)
+        public async Task<DetallePedidoRequest> getDetallePedido(int codPedido, int codProducto)
         {
             var sp = "USP_GET_ID_DETALLEPEDIDO";
             var parameters = new DynamicParameters();
@@ -25,9 +24,9 @@ namespace proyectoShopmi.Repositorio
 
             try
             {
-                using var conexion = new SqlConnection(cadena);
+                using var conexion = new SqlConnection(_cadena);
 
-                var registro = await conexion.QueryFirstOrDefaultAsync<DetallePedido>(sp, parameters, commandType: CommandType.StoredProcedure);
+                var registro = await conexion.QueryFirstOrDefaultAsync<DetallePedidoRequest>(sp, parameters, commandType: CommandType.StoredProcedure);
 
                 return registro;
             }
@@ -36,14 +35,30 @@ namespace proyectoShopmi.Repositorio
                 throw new Exception(ex.Message);
             }
         }
-        public Task<string> insertDetallePedido(DetallePedido detallePedido)
+        public async Task<int> insertDetallePedido(DetallePedidoRequest detallePedido)
         {
-            throw new NotImplementedException();
+            var sp = "USP_INSERT_DETALLEPEDIDO";
+            var parameters = new DynamicParameters();
+            parameters.Add("CODPEDIDO", detallePedido.codPedido, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("CODPRODUCTO", detallePedido.codProducto, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("PREUNI", detallePedido.preUni, DbType.Decimal, ParameterDirection.Input);
+            parameters.Add("CANTIDAD", detallePedido.cantidad, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("EST_PP", detallePedido.estPP, DbType.Boolean, ParameterDirection.Input);
+            try
+            {
+                using var conexion = new SqlConnection(_cadena);
+                var rsp = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
+                return rsp;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<string> updateDetallePedido(DetallePedido detallePedido)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<int> updateDetallePedido(DetallePedidoRequest detallePedido)
+        //{
+        //    return ;
+        //}
     }
 }

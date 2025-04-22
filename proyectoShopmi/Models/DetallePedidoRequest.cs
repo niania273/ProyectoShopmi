@@ -1,17 +1,12 @@
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using proyectoShopmi.Models.Response;
 
 namespace proyectoShopmi.Models
 {
-    public class DetallePedido
+    public class DetallePedidoRequest
     {
-        [Key, Column(Order = 0)]
         [DisplayName("Código de Pedido")]
         public int codPedido { get; set; }
 
-        [Key, Column(Order = 1)]
         [DisplayName("Código de Producto")]
         public int codProducto { get; set; }
 
@@ -23,9 +18,5 @@ namespace proyectoShopmi.Models
 
         [DisplayName("Estado")]
         public bool estPP { get; set; }
-
-        // Relacion de Pedido y Producto 
-        public Pedido? Pedido { get; set; }
-        public ProductoResponse? Producto { get; set; }
     }
 }

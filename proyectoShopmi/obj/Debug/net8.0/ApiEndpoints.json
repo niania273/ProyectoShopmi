@@ -341,32 +341,6 @@
   },
   {
     "ContainingType": "proyectoShopmi.Controllers.PedidoController",
-    "Method": "ActualizarPedido",
-    "RelativePath": "pedidos/Pedido/actualizar",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pedido",
-        "Type": "proyectoShopmi.Models.Pedido",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "proyectoShopmi.Controllers.PedidoController",
     "Method": "EliminarPedido",
     "RelativePath": "pedidos/Pedido/eliminar/{codPedido}",
     "HttpMethod": "DELETE",
@@ -401,7 +375,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.Pedido, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[proyectoShopmi.Models.PedidoRequest, proyectoShopmi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -427,7 +401,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "proyectoShopmi.Models.Pedido",
+        "Type": "proyectoShopmi.Models.PedidoRequest",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -446,8 +420,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "pedido",
-        "Type": "proyectoShopmi.Models.Pedido",
+        "Name": "pedidoDetallePedido",
+        "Type": "proyectoShopmi.Models.Request.PedidoDetallePedidoRequest",
         "IsRequired": true
       }
     ],

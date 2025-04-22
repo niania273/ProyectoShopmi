@@ -622,7 +622,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Pedido"
+                    "$ref": "#/components/schemas/PedidoRequest"
                   }
                 }
               },
@@ -630,7 +630,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Pedido"
+                    "$ref": "#/components/schemas/PedidoRequest"
                   }
                 }
               },
@@ -638,7 +638,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Pedido"
+                    "$ref": "#/components/schemas/PedidoRequest"
                   }
                 }
               }
@@ -669,17 +669,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pedido"
+                  "$ref": "#/components/schemas/PedidoRequest"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pedido"
+                  "$ref": "#/components/schemas/PedidoRequest"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pedido"
+                  "$ref": "#/components/schemas/PedidoRequest"
                 }
               }
             }
@@ -696,65 +696,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoDetallePedidoRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoDetallePedidoRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Pedido"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/pedidos/Pedido/actualizar": {
-      "put": {
-        "tags": [
-          "Pedido"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Pedido"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Pedido"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Pedido"
+                "$ref": "#/components/schemas/PedidoDetallePedidoRequest"
               }
             }
           }
@@ -1182,10 +1134,47 @@
         },
         "additionalProperties": false
       },
-      "Pedido": {
+      "PedidoDetallePedidoRequest": {
         "type": "object",
         "properties": {
           "codPedido": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codUsuario": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "precioTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "productos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductoDetalleRequest"
+            },
+            "nullable": true
+          },
+          "cantidades": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PedidoRequest": {
+        "type": "object",
+        "properties": {
+          "codPedido": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codUsuario": {
             "type": "integer",
             "format": "int32"
           },
@@ -1196,23 +1185,22 @@
           "precioTotal": {
             "type": "number",
             "format": "double"
-          },
-          "cantidad": {
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductoDetalleRequest": {
+        "type": "object",
+        "properties": {
+          "codProducto": {
             "type": "integer",
             "format": "int32"
           },
-          "actPed": {
-            "type": "string",
-            "nullable": true
+          "preUni": {
+            "type": "number",
+            "format": "double"
           },
-          "estPed": {
-            "type": "boolean"
-          },
-          "codCliente": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codEmpleado": {
+          "stock": {
             "type": "integer",
             "format": "int32"
           }

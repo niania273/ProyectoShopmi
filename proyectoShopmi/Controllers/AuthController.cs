@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using proyectoShopmi.Models;
 using proyectoShopmi.Models.Request;
-using proyectoShopmi.Repositorio;
 using proyectoShopmi.Repositorio.Interfaces;
 
 namespace proyectoShopmi.Controllers

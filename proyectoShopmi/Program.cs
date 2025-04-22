@@ -25,6 +25,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
+builder.Services.AddScoped<IDetallePedidoRepository, DetallePedidoRepository>();
 builder.Services.AddScoped<IDistritoRepository, DistritoRepository>();
 builder.Services.AddScoped<ISucursalRepository, SucursalRepository>();
 builder.Services.AddScoped<IJwtTokenRepository, JwtTokenRepository>();

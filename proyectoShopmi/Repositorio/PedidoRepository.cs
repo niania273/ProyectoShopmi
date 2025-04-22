@@ -8,20 +8,21 @@ namespace proyectoShopmi.Repositorio
 {
     public class PedidoRepository : IPedidoRepository
     {
-        private readonly string cadena = "";
-
-        public PedidoRepository()
+        private readonly IConfiguration _config;
+        private readonly string _cadena;
+        public PedidoRepository(IConfiguration config)
         {
-            cadena = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build().GetConnectionString("conexion") ?? "";
+            _config = config;
+            _cadena = _config.GetConnectionString("Conexion") ?? "";
         }
 
-        public async Task<IEnumerable<Pedido>> GetPedidos()
+        public async Task<IEnumerable<PedidoRequest>> GetPedidos()
         {
             var sp = "USP_GET_PEDIDO";
             try
             {
-                using var conexion = new SqlConnection(cadena);
-                var listado = await conexion.QueryAsync<Pedido>(sp, commandType: CommandType.StoredProcedure);
+                using var conexion = new SqlConnection(_cadena);
+                var listado = await conexion.QueryAsync<PedidoRequest>(sp, commandType: CommandType.StoredProcedure);
                 return listado;
             }
             catch (Exception ex)
@@ -30,7 +31,7 @@ namespace proyectoShopmi.Repositorio
             }
         }
 
-        public async Task<Pedido> GetPedido(int codPedido)
+        public async Task<PedidoRequest> GetPedido(int codPedido)
         {
             var sp = "USP_GET_ID_PEDIDO";
             var parameters = new DynamicParameters();
@@ -38,9 +39,9 @@ namespace proyectoShopmi.Repositorio
 
             try
             {
-                using var conexion = new SqlConnection(cadena);
+                using var conexion = new SqlConnection(_cadena);
 
-                var registro = await conexion.QueryFirstOrDefaultAsync<Pedido>(sp, parameters, commandType: CommandType.StoredProcedure);
+                var registro = await conexion.QueryFirstOrDefaultAsync<PedidoRequest>(sp, parameters, commandType: CommandType.StoredProcedure);
 
                 return registro;
             }
@@ -49,30 +50,56 @@ namespace proyectoShopmi.Repositorio
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<string> MergePedido(Pedido pedido)
+        public async Task<int> InsertPedido(PedidoRequest pedido)
         {
-            var sp = "USP_MERGE_PEDIDO";
-            var mensaje = "";
+            var sp = "USP_INSERT_PEDIDO";
             var parameters = new DynamicParameters();
 
-            parameters.Add("CODPEDIDO", pedido.codPedido, DbType.Int32, ParameterDirection.Input);
-            parameters.Add("CODCLIENTE", pedido.codCliente, DbType.Int32, ParameterDirection.Input);
-            parameters.Add("CODEMPLEADO", pedido.codEmpleado, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("CODPEDIDO", pedido.codPedido, DbType.Int32, ParameterDirection.Output);
+            parameters.Add("CODUSUARIO", pedido.codUsuario, DbType.Int32, ParameterDirection.Input);
             parameters.Add("FECPED", pedido.fecPed, DbType.Date, ParameterDirection.Input);
             parameters.Add("PRECIOTOTAL", pedido.precioTotal, DbType.Decimal, ParameterDirection.Input);
-            parameters.Add("ACTPED", pedido.actPed, DbType.String, ParameterDirection.Input);
-            parameters.Add("ESTPED", pedido.estPed, DbType.Boolean, ParameterDirection.Input);
+            parameters.Add("ACTPED", "Pendiente", DbType.String, ParameterDirection.Input);
+            parameters.Add("ESTPED", true, DbType.Boolean, ParameterDirection.Input);
 
             try
             {
-                using var conexion = new SqlConnection(cadena);
+                using var conexion = new SqlConnection(_cadena);
                 var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
-                mensaje = $"Se ha generado {respuesta} pedido.";
-                return mensaje;
+                var idGenerado = parameters.Get<int>("CODPEDIDO");
+
+                if (respuesta!= 0 && idGenerado != 0)
+                {
+                    return idGenerado;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al ejecutar MergePedido: " + ex.Message);
+                throw new Exception("Error al ejecutar InsertPedido: " + ex.Message);
+            }
+        }
+
+        public async Task<int> UpdatePedidoPrecio(PedidoRequest pedido)
+        {
+            var sp = "USP_UPDATE_PEDIDO_PRECIO";
+            var parameters = new DynamicParameters();
+
+            parameters.Add("CODPEDIDO", pedido.codPedido, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("PRECIOTOTAL", pedido.precioTotal, DbType.Decimal, ParameterDirection.Input);
+
+            try
+            {
+                using var conexion = new SqlConnection(_cadena);
+                var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -85,7 +112,7 @@ namespace proyectoShopmi.Repositorio
 
             try
             {
-                using var conexion = new SqlConnection(cadena);
+                using var conexion = new SqlConnection(_cadena);
                 var respuesta = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
                 return $"Se ha realizado la eliminación de {(respuesta > 0 ? "1" : "ningún")} pedido.";
             }

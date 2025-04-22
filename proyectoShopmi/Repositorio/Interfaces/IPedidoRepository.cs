@@ -4,10 +4,12 @@ namespace proyectoShopmi.Repositorio.Interfaces
 {
     public interface IPedidoRepository
     {
-        Task<IEnumerable<Pedido>> GetPedidos();
+        Task<IEnumerable<PedidoRequest>> GetPedidos();
 
-        Task<Pedido> GetPedido(int codPedido);
-        Task<string> MergePedido(Pedido pedido);
+        Task<PedidoRequest> GetPedido(int codPedido);
+        Task<int> InsertPedido(PedidoRequest pedido);
+
+        Task<int> UpdatePedidoPrecio(PedidoRequest pedido);
         Task<string> DeletePedido(int codPedido);
     }
 }
