@@ -26,7 +26,22 @@ namespace proyectoShopmi.Controllers
 
             if (response == null)
             {
-                return BadRequest("¡Error! No se encontraron productos.");
+                return BadRequest("Â¡Error! No se encontraron productos.");
+            }
+
+            return Ok(response);
+        }
+
+        //LISTAR PRODUCTOS POR CATEGORIA
+        //[Authorize]
+        [HttpGet("[action]/{codCategoria}")]
+        public async Task<ActionResult<IEnumerable<ProductoResponse>>> ListarPorCategoria(int codCategoria)
+        {
+            var response = await _productoRepository.GetProductosPorCategoria(codCategoria);
+
+            if (response == null || !response.Any())
+            {
+                return NotFound("No hay productos para esta categorÃ­a.");
             }
 
             return Ok(response);
@@ -38,7 +53,7 @@ namespace proyectoShopmi.Controllers
         {
             if (codProducto == 0)
             {
-                return BadRequest("¡Error! Ingresar datos válidos.");
+                return BadRequest("Â¡Error! Ingresar datos vÃ¡lidos.");
             }
 
             var registro = await _productoRepository.GetProducto(codProducto);
@@ -59,10 +74,10 @@ namespace proyectoShopmi.Controllers
         {
             if (producto == null)
             {
-                return BadRequest("¡Error! Ingresar datos válidos.");
+                return BadRequest("Â¡Error! Ingresar datos vÃ¡lidos.");
             }
 
-            var mensaje = await _productoRepository.MergeProducto(producto, "inserción");
+            var mensaje = await _productoRepository.MergeProducto(producto, "inserciÃ³n");
             Console.WriteLine($"Mensaje de respuesta: {mensaje ?? "null"}");
             return Ok(new { mensaje = mensaje });
         }
@@ -71,7 +86,7 @@ namespace proyectoShopmi.Controllers
         [HttpPut("[action]")]
         public async Task<ActionResult<string>> ActualizarProducto([FromBody] ProductoRequest producto)
         {
-            var mensaje = await _productoRepository.MergeProducto(producto, "actualización");
+            var mensaje = await _productoRepository.MergeProducto(producto, "actualizaciÃ³n");
             Console.WriteLine($"Mensaje de respuesta: {mensaje ?? "null"}");
             return Ok(new { mensaje = mensaje });
         }
@@ -82,7 +97,7 @@ namespace proyectoShopmi.Controllers
         {
             if (codProducto == 0)
             {
-                return BadRequest("¡Error! Ingresar datos válidos.");
+                return BadRequest("Â¡Error! Ingresar datos vÃ¡lidos.");
             }
 
             var mensaje = await _productoRepository.DeleteProducto(codProducto);
