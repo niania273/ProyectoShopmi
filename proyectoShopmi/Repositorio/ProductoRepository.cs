@@ -32,22 +32,22 @@ namespace proyectoShopmi.Repositorio
             }
         }
 
-         //LISTAR PRODUCTOS POR CATEGORIA
-         public async Task<IEnumerable<ProductoResponse>> GetProductosPorCategoria(int codCategoria)
-         {
-             var sp = "USP_GET_PRODUCTO_POR_CATEGORIA";
-        
-             try
-             {
-                 using var conexion = new SqlConnection(_cadena);
-                 var listado = await conexion.QueryAsync<ProductoResponse>(sp,new { CodCategoria = codCategoria },commandType: CommandType.StoredProcedure);
-                 return listado;
-             }
-             catch (Exception ex)
-             {
-                 throw new Exception(ex.Message);
-             }
-         }
+        //LISTAR PRODUCTOS POR CATEGORIA
+        public async Task<IEnumerable<ProductoResponse>> GetProductosPorCategoria(int codCategoria)
+        {
+            var sp = "USP_GET_PRODUCTO_POR_CATEGORIA";
+
+            try
+            {
+                using var conexion = new SqlConnection(_cadena);
+                var listado = await conexion.QueryAsync<ProductoResponse>(sp,new { CodCategoria = codCategoria },commandType: CommandType.StoredProcedure);
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public async Task<ProductoResponse> GetProducto(int codProducto)
         {
@@ -113,5 +113,28 @@ namespace proyectoShopmi.Repositorio
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<string> CambiarEstadoProducto(int codProducto, bool estActual)
+        {
+            // si estActual == true, lo desactivamos, si es false lo activamos
+            var sp = estActual ? "USP_DELETE_PRODUCTO" : "USP_ENABLE_PRODUCTO";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("CODPRODUCTO", codProducto, DbType.Int32, ParameterDirection.Input);
+
+            try
+            {
+                using var conexion = new SqlConnection(_cadena);
+                var filasAfectadas = await conexion.ExecuteAsync(sp, parameters, commandType: CommandType.StoredProcedure);
+                return estActual
+                    ? $"Se ha desactivado {filasAfectadas} producto(s)."
+                    : $"Se ha activado {filasAfectadas} producto(s).";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
