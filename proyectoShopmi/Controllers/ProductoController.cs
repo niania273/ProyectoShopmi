@@ -127,7 +127,7 @@ namespace proyectoShopmi.Controllers
             return Ok(new { mensaje });
         }
 
-
+        //REGISTRAR ACTUALIZAR POR CATEGORIA
 
         [HttpPut("[action]")]
         public async Task<ActionResult<string>> ActualizarProducto([FromForm] ProductoFormRequest productoForm)
@@ -183,6 +183,23 @@ namespace proyectoShopmi.Controllers
             var mensaje = await _productoRepository.MergeProducto(producto, "actualización");
             return Ok(new { mensaje });
         }
+
+
+        [HttpPut("CambiarEstadoProducto/{codProducto}")]
+        public async Task<IActionResult> CambiarEstadoProducto(int codProducto)
+        {
+            // 1) traigo el producto
+            var producto = await _productoRepository.GetProducto(codProducto);
+            if (producto == null)
+                return NotFound("Producto no encontrado.");
+
+            // 2) llamo al repo pasando el estado actual
+            var mensaje = await _productoRepository.CambiarEstadoProducto(codProducto, producto.estProducto);
+
+            // 3) devuelvo el mensaje
+            return Ok(new { mensaje });
+        }
+
 
     }
 }
