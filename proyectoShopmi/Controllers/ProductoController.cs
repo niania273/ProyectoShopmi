@@ -1,8 +1,13 @@
+using System.Text.RegularExpressions;
+using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using proyectoShopmi.Models.Request;
 using proyectoShopmi.Models.Response;
+using proyectoShopmi.Repositorio;
 using proyectoShopmi.Repositorio.Interfaces;
+
 
 namespace proyectoShopmi.Controllers
 {
@@ -12,7 +17,8 @@ namespace proyectoShopmi.Controllers
     {
         private readonly IProductoRepository _productoRepository;
 
-        public ProductoController(IProductoRepository productoRepository)
+        // Constructor donde inyectamos IConfiguration para acceder a la cadena de conexión
+        public ProductoController(IProductoRepository productoRepository, IConfiguration configuration)
         {
             _productoRepository = productoRepository;
         }
@@ -47,61 +53,136 @@ namespace proyectoShopmi.Controllers
             return Ok(response);
         }
 
-        // GET productos/BuscarProducto/5
+        //BUSCAR PRODUCTO
         [HttpGet("[action]/{codProducto}")]
-        public async Task<ActionResult<ProductoResponse>> BuscarProducto(int codProducto)
+        public async Task<ActionResult<ProductoResponse>> ObtenerProducto(int codProducto)
         {
-            if (codProducto == 0)
-            {
-                return BadRequest("¡Error! Ingresar datos válidos.");
-            }
-
             var registro = await _productoRepository.GetProducto(codProducto);
             return Ok(registro);
         }
 
-        // GET productos/RegistrarProducto
-        [HttpGet("[action]")]
-        public async Task<ActionResult<string>> RegistrarProducto()
-        {
-            
-            return Ok(await Task.Run( () => new ProductoRequest()));
-        }
-
-        // POST productos/RegistrarProducto
+        //REGISTRAR PRODUCTOS POR CATEGORIA
         [HttpPost("[action]")]
-        public async Task<ActionResult<string>> RegistrarProducto([FromBody] ProductoRequest producto)
+        public async Task<ActionResult<string>> RegistrarProducto([FromForm] ProductoFormRequest productoForm)
         {
-            if (producto == null)
-            {
+            if (productoForm == null)
                 return BadRequest("¡Error! Ingresar datos válidos.");
+
+            string? urlImagen = null;
+
+            if (productoForm.imgProducto != null && productoForm.imgProducto.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "imagenes", "productos");
+
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+
+                var originalFileName = Path.GetFileName(productoForm.imgProducto.FileName.Trim());
+                var filePath = Path.Combine(uploadsFolder, originalFileName);
+
+                int fileIndex = 1;
+                while (System.IO.File.Exists(filePath))
+                {
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(originalFileName);
+                    var ext = Path.GetExtension(originalFileName);
+                    var newFileName = $"{fileNameWithoutExt}_{fileIndex}{ext}";
+                    filePath = Path.Combine(uploadsFolder, newFileName);
+                    originalFileName = newFileName;
+                    fileIndex++;
+                }
+
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await productoForm.imgProducto.CopyToAsync(stream);
+                }
+
+
+                urlImagen = originalFileName;
             }
+
+
+            if (!string.IsNullOrEmpty(urlImagen))
+            {
+                urlImagen = Path.GetFileName(urlImagen);
+            }
+
+            var producto = new ProductoRequest
+            {
+                codProducto = productoForm.codProducto,
+                nomProducto = productoForm.nomProducto,
+                descripcion = productoForm.descripcion,
+                preUni = productoForm.preUni,
+                stock = productoForm.stock,
+                estProducto = productoForm.estProducto,
+                codCategoria = productoForm.codCategoria,
+                codMarca = productoForm.codMarca,
+                imgProducto = urlImagen
+            };
+
 
             var mensaje = await _productoRepository.MergeProducto(producto, "inserción");
-            Console.WriteLine($"Mensaje de respuesta: {mensaje ?? "null"}");
-            return Ok(new { mensaje = mensaje });
+
+            return Ok(new { mensaje });
         }
 
-        // PUT productos/ActualizarProducto
+
+
         [HttpPut("[action]")]
-        public async Task<ActionResult<string>> ActualizarProducto([FromBody] ProductoRequest producto)
+        public async Task<ActionResult<string>> ActualizarProducto([FromForm] ProductoFormRequest productoForm)
         {
-            var mensaje = await _productoRepository.MergeProducto(producto, "actualización");
-            Console.WriteLine($"Mensaje de respuesta: {mensaje ?? "null"}");
-            return Ok(new { mensaje = mensaje });
-        }
-
-        // DELETE productos/EliminarProducto/5
-        [HttpDelete("{codProducto}")]
-        public async Task<ActionResult<string>> EliminarProducto(int codProducto)
-        {
-            if (codProducto == 0)
-            {
+            if (productoForm == null)
                 return BadRequest("¡Error! Ingresar datos válidos.");
+
+            string? urlImagen = null;
+
+            if (productoForm.imgProducto != null && productoForm.imgProducto.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "imagenes", "productos");
+
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                var originalFileName = Path.GetFileName(productoForm.imgProducto.FileName.Trim());
+                var filePath = Path.Combine(uploadsFolder, originalFileName);
+
+                int fileIndex = 1;
+                while (System.IO.File.Exists(filePath))
+                {
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(originalFileName);
+                    var ext = Path.GetExtension(originalFileName);
+                    var newFileName = $"{fileNameWithoutExt}_{fileIndex}{ext}";
+                    filePath = Path.Combine(uploadsFolder, newFileName);
+                    originalFileName = newFileName;
+                    fileIndex++;
+                }
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await productoForm.imgProducto.CopyToAsync(stream);
+                }
+
+                urlImagen = originalFileName;
             }
 
-            var mensaje = await _productoRepository.DeleteProducto(codProducto);
-            return Ok(mensaje);
+
+            var producto = new ProductoRequest
+            {
+                codProducto = productoForm.codProducto,
+                nomProducto = productoForm.nomProducto,
+                descripcion = productoForm.descripcion,
+                preUni = productoForm.preUni,
+                stock = productoForm.stock,
+                estProducto = productoForm.estProducto,
+                codCategoria = productoForm.codCategoria,
+                codMarca = productoForm.codMarca,
+                imgProducto = urlImagen ?? productoForm.imgActual
+            };
+
+            var mensaje = await _productoRepository.MergeProducto(producto, "actualización");
+            return Ok(new { mensaje });
         }
+
     }
 }
