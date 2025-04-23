@@ -1,15 +1,16 @@
-using proyectoShopmi.Models;
+using proyectoShopmi.Models.Request;
+using proyectoShopmi.Models.Response;
 
 namespace proyectoShopmi.Repositorio.Interfaces
 {
-    public interface IPedidoRepository
+    public interface IProductoRepository
     {
-        Task<IEnumerable<PedidoRequest>> GetPedidos();
+        Task<IEnumerable<ProductoResponse>> GetProductos();
+        Task<IEnumerable<ProductoResponse>> GetProductosPorCategoria(int codCategoria);
+        Task<ProductoResponse> GetProducto(int codProducto);
+        Task<string> MergeProducto(ProductoRequest producto, string accion);
+        Task<string> DeleteProducto(int codProducto);
 
-        Task<PedidoRequest> GetPedido(int codPedido);
-        Task<int> InsertPedido(PedidoRequest pedido);
-
-        Task<int> UpdatePedidoPrecio(PedidoRequest pedido);
-        Task<string> DeletePedido(int codPedido);
+        Task<string> CambiarEstadoProducto(int codProducto, bool estActual);
     }
 }
